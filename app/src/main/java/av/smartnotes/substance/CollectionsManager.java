@@ -42,13 +42,20 @@ public class CollectionsManager {
     }
 
     public void set(int id, CharSequence title, CharSequence body) {
-        if (id >= itemList.size()) {
+        if (id >= itemList.size() || id < 0) {
             return;
         }
 
         itemList.set(id, Node.construct(title.toString(), body.toString()));
     }
 
+    public void remove(int id) {
+        if (id >= itemList.size() || id < 0) {
+            return;
+        }
+
+        itemList.remove(id);
+    }
 
     public void createList() {
         for (int i = 0; i < 10; i++) {

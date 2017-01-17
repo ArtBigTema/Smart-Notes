@@ -6,8 +6,10 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.github.ivbaranov.mfb.MaterialFavoriteButton;
+import com.melnykov.fab.FloatingActionButton;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.OptionsItem;
@@ -32,6 +34,9 @@ public class EditDetailActivity extends ActivityWithToolbar
     @ViewById(R.id.et_node_body)
     protected EditText nodeBody;
 
+    @ViewById(R.id.fab)
+    protected FloatingActionButton fab;
+
     @Extra
     protected String title;
     @Extra
@@ -53,6 +58,8 @@ public class EditDetailActivity extends ActivityWithToolbar
         if (!TextUtils.isEmpty(title) && !TextUtils.isEmpty(body)) {
             nodeTitle.setText(title);
             nodeBody.setText(body);
+        } else {
+            fab.setVisibility(View.GONE);
         }
 
         setToolbarSaveButton(this);
@@ -63,11 +70,17 @@ public class EditDetailActivity extends ActivityWithToolbar
         onBackPressed();
     }
 
+    @Click(R.id.fab)
+    protected void fabClick() {
+        CollectionsManager.getInstance().remove(id);
+        finish();
+    }
+
     @Override
     public void onClick(View v) {
         if (saveNode()) {
             markToolbarButton(false);
-            disableToolbarButton();
+            disableToolbar();
         } else {
             // todo show dlg
         }

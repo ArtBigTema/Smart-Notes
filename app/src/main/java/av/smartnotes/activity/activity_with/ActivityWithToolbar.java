@@ -97,7 +97,8 @@ public class ActivityWithToolbar extends AppCompatActivity {
         toolbarButton.setFavorite(turn);
     }
 
-    protected void disableToolbarButton() {
-        toolbarButton.setEnabled(false);
+    protected void disableToolbar() {
+        //  toolbarButton.setEnabled(false);
+        toolbar.setEnabled(false);
     }
 }

@@ -6,8 +6,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.github.ivbaranov.mfb.MaterialFavoriteButton;
+import com.melnykov.fab.FloatingActionButton;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.OptionsItem;
@@ -15,6 +17,7 @@ import org.androidannotations.annotations.ViewById;
 
 import av.smartnotes.R;
 import av.smartnotes.activity.activity_with.ActivityWithToolbar;
+import av.smartnotes.substance.CollectionsManager;
 import av.smartnotes.util.Constant;
 
 /**
@@ -28,6 +31,9 @@ public class DetailActivity extends ActivityWithToolbar
 
     @ViewById(R.id.et_node_body)
     protected TextView nodeBody;
+
+    @ViewById(R.id.fab)
+    protected FloatingActionButton fab;
 
     @Extra
     protected String title;
@@ -60,10 +66,17 @@ public class DetailActivity extends ActivityWithToolbar
         onBackPressed();
     }
 
+    @Click(R.id.fab)
+    protected void fabClick() {
+        CollectionsManager.getInstance().remove(id);
+        finish();
+    }
+
     @Override
     public void onClick(View v) {
         markToolbarButton(false);
-        disableToolbarButton();
+        disableToolbar();
+        fab.setEnabled(false);
         showEditDetailActivity();
     }
 

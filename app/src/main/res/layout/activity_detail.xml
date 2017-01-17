@@ -1,36 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <include layout="@layout/toolbar" />
-
-    <TextView
-        android:id="@+id/et_node_title"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_normal"
-        android:imeOptions="actionNext"
-        android:inputType="text"
-        android:maxLines="1"
-        android:padding="@dimen/padding_normal"
-        android:textAlignment="center"
-        android:textIsSelectable="false"
-        android:textSize="@dimen/font_detail_title" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        <include layout="@layout/toolbar" />
 
         <TextView
-            android:id="@+id/et_node_body"
+            android:id="@+id/et_node_title"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:maxLines="1"
             android:padding="@dimen/padding_normal"
             android:textAlignment="center"
             android:textIsSelectable="false"
-            android:textSize="@dimen/font_detail_body" />
-    </ScrollView>
+            android:textSize="@dimen/font_detail_title" />
 
-</LinearLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/et_node_body"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/padding_normal"
+                android:textAlignment="center"
+                android:textIsSelectable="false"
+                android:textSize="@dimen/font_detail_body" />
+        </ScrollView>
+    </LinearLayout>
+
+    <com.melnykov.fab.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/margin_normal"
+        android:src="@drawable/icon_delete"
+        fab:fab_colorNormal="?colorPrimary"
+        fab:fab_colorPressed="?colorPrimaryDark"
+        fab:fab_colorRipple="?colorAccent"
+        fab:fab_type="normal" />
+</RelativeLayout>
