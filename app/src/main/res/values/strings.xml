@@ -13,6 +13,7 @@
     <string name="alert_dialog_title">Внимание</string>
     <string name="alert_dialog_body_save">Пожалуйста, заполните поля более информативно</string>
     <string name="alert_dialog_body_close">Сохранить заметку перед выходом?</string>
+    <string name="alert_dialog_body_export">Необходимо создать хотя бы одну заметку, прежде чем сохранить в файл</string>
     <string name="alert_dialog_btn_ok">Да</string><!-- android.R.string.ok -->
     <string name="alert_dialog_btn_no">Нет</string><!-- android.R.string.no -->
 </resources>

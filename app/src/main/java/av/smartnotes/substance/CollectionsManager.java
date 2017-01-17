@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import av.smartnotes.util.Constant;
+import av.smartnotes.util.Utils;
 
 /**
  * Created by Artem on 17.01.2017.
@@ -23,6 +24,10 @@ public class CollectionsManager {
             instance = new CollectionsManager();
         }
         return instance;
+    }
+
+    public void addList(List<Node> list) {
+        itemList.addAll(list);
     }
 
     public List<Node> getItemList() {
@@ -68,12 +73,7 @@ public class CollectionsManager {
         itemList.clear();
     }
 
-    public String toText() {
-        StringBuilder sb = new StringBuilder();
-        for (Node node : itemList) {
-            sb.append(node.toText());
-            sb.append("\r\n");
-        }
-        return sb.toString();
+    public String toJson() {
+        return Utils.toJson(itemList);
     }
 }

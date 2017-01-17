@@ -1,5 +1,7 @@
 package av.smartnotes.activity;
 
+import android.support.v7.app.AlertDialog;
+import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -13,6 +15,7 @@ import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.LongClick;
+import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
 import av.smartnotes.R;
@@ -25,7 +28,7 @@ import av.smartnotes.view.ItemsAdapter;
 
 @EActivity(R.layout.activity_main)
 public class MainActivity extends ActivityWithToolbar
-        implements MaterialFavoriteButton.OnClickListener {
+        implements MaterialFavoriteButton.OnClickListener, MaterialFavoriteButton.OnLongClickListener {
     @ViewById(R.id.rv_main)
     protected RecyclerView recyclerView;
 
@@ -40,6 +43,7 @@ public class MainActivity extends ActivityWithToolbar
         setRecycleView();
 
         showTooltip();
+        setToolbarExportButton(this, this);
     }
 
     @Override
@@ -50,7 +54,6 @@ public class MainActivity extends ActivityWithToolbar
             recyclerView.swapAdapter(
                     new ItemsAdapter(CollectionsManager.getInstance().getItemList()),
                     false);
-            setToolbarExportButton(this);
         }
     }
 
@@ -88,24 +91,58 @@ public class MainActivity extends ActivityWithToolbar
         addTestDataToList();
     }
 
-    @Override
-    public void onClick(View v) {
-        saveList();
-        Toast.makeText(this, "save", Toast.LENGTH_SHORT).show();
-    }
-
-    @Background
-    protected void saveList() {
-        FileController.writeTextToFile(this, CollectionsManager.getInstance().toText());
-        // if error do smth
-    }
-
     private void addTestDataToList() {
         CollectionsManager.getInstance().createList();
 
         recyclerView.setAdapter(
                 new ItemsAdapter(CollectionsManager.getInstance().getItemList()));
+    }
 
-        setToolbarExportButton(this);
+    @Override
+    public void onClick(View v) {
+        if (CollectionsManager.getInstance().isEmpty()) {
+            new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.DialogTheme))
+                    .setTitle(R.string.alert_dialog_title)
+                    .setMessage(R.string.alert_dialog_body_export)
+                    .setCancelable(true)
+                    .create()
+                    .show();
+        } else {
+            saveList();
+            Toast.makeText(this, "save", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Background
+    protected void saveList() {
+        FileController.writeTextToFile(this, CollectionsManager.getInstance().toJson());
+        // if error do smth
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        if (FileController.fileExist(this)) {
+            readListFromFile();
+        } else {
+            Toast.makeText(this, "File not found", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
+    @Background
+    protected void readListFromFile() {
+        Object json = FileController.readJson(this);
+        if (json != null && json instanceof String) {
+            CollectionsManager.getInstance().addList(
+                    Utils.parseItems(String.class.cast(json)));
+            setAdapter();
+        }
+    }
+
+    @UiThread
+    protected void setAdapter() {
+        recyclerView.setAdapter(
+                new ItemsAdapter(CollectionsManager.getInstance().getItemList()));
     }
 }

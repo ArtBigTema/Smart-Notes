@@ -92,10 +92,12 @@ public class ActivityWithToolbar extends AppCompatActivity {
         toolbarButton.setRotationDuration(Constant.DURATION_ROTATION);
     }
 
-    protected void setToolbarExportButton(MaterialFavoriteButton.OnClickListener listener) {
+    protected void setToolbarExportButton(MaterialFavoriteButton.OnClickListener clickListener,
+                                          MaterialFavoriteButton.OnLongClickListener listener) {
         toolbarButton.setVisibility(View.VISIBLE);
         toolbarButton.setFavoriteResource(R.drawable.icon_file_export);
-        toolbarButton.setOnClickListener(listener);
+        toolbarButton.setOnClickListener(clickListener);
+        toolbarButton.setOnLongClickListener(listener);
         toolbarButton.setNotFavoriteResource(R.drawable.icon_ok);
         toolbarButton.setFavorite(true);
         toolbarButton.setAnimateFavorite(true);
