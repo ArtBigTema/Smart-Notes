@@ -19,6 +19,8 @@
     <dimen name="padding_micro">4dp</dimen>
     <dimen name="margin_big">20dp</dimen>
 
+    <dimen name="image_view_height">100dp</dimen>
+    <dimen name="image_view_width">100dp</dimen>
 
     <dimen name="scrollbar_thumb_size">3dp</dimen>
     <dimen name="scrollbar_thumb_radius">2dp</dimen>
@@ -27,5 +29,4 @@
     <dimen name="color_swatch_small">48dip</dimen>
     <dimen name="color_swatch_margins_large">8dip</dimen>
     <dimen name="color_swatch_margins_small">4dip</dimen>
-
 </resources>

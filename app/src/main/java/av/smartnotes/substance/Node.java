@@ -26,6 +26,10 @@ public class Node extends Model {
     @Column(name = "priority")
     private int priority;
 
+    @Expose
+    @Column(name = "imagePath")
+    private String imagePath;
+
     public Node() {//Don't delete crash at first init
         super();
     }
@@ -35,6 +39,7 @@ public class Node extends Model {
         this.title = title;
         this.body = body;
         priority = Color.WHITE;
+        imagePath = "";
     }
 
     public String getTitle() {
@@ -65,10 +70,18 @@ public class Node extends Model {
         this.priority = priority;
     }
 
-    public static Node construct(String title, String body, int color) {
-        // long ms = System.currentTimeMillis();
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    public static Node construct(String title, String body, int color, String path) {
         Node node = new Node(title, body);
         node.setPriority(Priority.fromId(color).ordinal());
+        node.setImagePath(path);
         node.save();
         return node;
     }

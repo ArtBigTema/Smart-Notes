@@ -15,4 +15,6 @@ public class Constant {
     public static final String TEXT_FILE = "nodes.txt";
     public static final String DLG_TAG = "tag";
 
+    public static final int CODE = 1;
+
 }

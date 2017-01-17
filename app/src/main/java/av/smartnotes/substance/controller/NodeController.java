@@ -87,6 +87,9 @@ public class NodeController {
             case 2:
                 newColumns = getColumnForPostDb2();
                 break;
+            case 3:
+                newColumns = getColumnForPostDb3();
+                break;
             default:
                 break;
         }
@@ -96,5 +99,11 @@ public class NodeController {
     private static Pair[] getColumnForPostDb2() {
         Pair<String, String> c1 = Pair.create("priority", " INTEGER");
         return new Pair[]{c1};
+    }
+
+    private static Pair[] getColumnForPostDb3() {
+        Pair<String, String> c1 = Pair.create("priority", " INTEGER");
+        Pair<String, String> c2 = Pair.create("imagePath", " TEXT");
+        return new Pair[]{c1, c2};
     }
 }

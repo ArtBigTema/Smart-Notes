@@ -21,7 +21,7 @@ public class AppSmartNodes extends Application {
 
         Configuration.Builder configurationBuilder = new Configuration.Builder(this);
         configurationBuilder.addModelClass(Node.class);
-        configurationBuilder.setDatabaseVersion(2);
+        configurationBuilder.setDatabaseVersion(3);
         ActiveAndroid.initialize(configurationBuilder.create());
 
         NodeController.updatePostDb();

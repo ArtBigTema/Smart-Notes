@@ -1,8 +1,11 @@
 package av.smartnotes.activity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.ivbaranov.mfb.MaterialFavoriteButton;
@@ -21,6 +24,7 @@ import av.smartnotes.substance.Node;
 import av.smartnotes.substance.Priority;
 import av.smartnotes.substance.controller.NodeController;
 import av.smartnotes.util.Constant;
+import av.smartnotes.util.Utils;
 
 /**
  * Created by Artem on 17.01.2017.
@@ -36,6 +40,9 @@ public class DetailActivity extends ActivityWithToolbar
 
     @ViewById(R.id.fab)
     protected FloatingActionButton fab;
+
+    @ViewById(R.id.iv_node)
+    protected ImageView imageView;
 
     @Extra
     protected long id = -1;
@@ -56,12 +63,14 @@ public class DetailActivity extends ActivityWithToolbar
     }
 
     private void setViews() {
-        if (!TextUtils.isEmpty(node.getTitle())
-                && !TextUtils.isEmpty(node.getBody())) {
+        if (id > -1) {
             setToolbarEditButton(this);
 
             nodeTitle.setText(node.getTitle());
             nodeBody.setText(node.getBody());
+            if (!TextUtils.isEmpty(node.getImagePath())) {
+                imageView.setImageURI(Utils.getUri(node.getImagePath()));
+            }
         }
     }
 
@@ -74,6 +83,24 @@ public class DetailActivity extends ActivityWithToolbar
     protected void fabClick() {
         node.delete();
         finish();
+    }
+
+    @Click(R.id.iv_node)
+    protected void imageViewClick() {
+        if (!TextUtils.isEmpty(node.getImagePath())) {
+            startIntentExtraImageActivity(node.getImagePath());//fixme if false
+        }
+    }
+
+    public boolean startIntentExtraImageActivity(String imageUrl) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.setDataAndType(Uri.parse("file://" + imageUrl), "image/*");
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+            return true;
+        }
+        return false;
     }
 
     @Override

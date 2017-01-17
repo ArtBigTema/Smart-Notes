@@ -1,6 +1,7 @@
 package av.smartnotes.util;
 
 import android.graphics.Color;
+import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
@@ -13,6 +14,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.File;
 import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -81,5 +83,10 @@ public class Utils {
             newNames.add(p.first + p.second);
         }
         return newNames.toArray(new String[newNames.size()]);
+    }
+
+    public static Uri getUri(String path) {
+        File file = new File(path);
+        return Uri.fromFile(file);
     }
 }

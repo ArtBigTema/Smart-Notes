@@ -1,14 +1,20 @@
 package av.smartnotes.activity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.view.ContextThemeWrapper;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
+import com.esafirm.imagepicker.features.ImagePicker;
+import com.esafirm.imagepicker.features.ImagePickerActivity;
+import com.esafirm.imagepicker.model.Image;
 import com.github.ivbaranov.mfb.MaterialFavoriteButton;
 import com.melnykov.fab.FloatingActionButton;
 import com.woalk.apps.lib.colorpicker.ColorPickerDialog;
@@ -48,10 +54,14 @@ public class EditDetailActivity extends ActivityWithToolbar
     @ViewById(R.id.btn_color)
     protected Button colorBtn;
 
+    @ViewById(R.id.iv_node)
+    protected ImageView imageView;
+
     @Extra
     protected long id = -1;
 
-    private int color;
+    private int priorityColor;
+    private String imagePath;
     private Node node;
 
     @AfterViews
@@ -72,6 +82,10 @@ public class EditDetailActivity extends ActivityWithToolbar
             nodeTitle.setText(node.getTitle());
             nodeBody.setText(node.getBody());
             colorBtn.setBackgroundColor(Priority.values()[node.getPriority()].id());
+
+            if (!TextUtils.isEmpty(node.getImagePath())) {
+                imageView.setImageURI(Utils.getUri(node.getImagePath()));
+            }
         } else {
             fab.setVisibility(View.GONE);
         }
@@ -118,6 +132,29 @@ public class EditDetailActivity extends ActivityWithToolbar
         finish();
     }
 
+    @Click(R.id.iv_node)
+    protected void imageViewClick() {
+        Intent intent = new Intent(this, ImagePickerActivity.class);
+
+        intent.putExtra(ImagePicker.EXTRA_FOLDER_MODE, true);
+        intent.putExtra(ImagePicker.EXTRA_MODE, ImagePicker.MODE_SINGLE);
+        intent.putExtra(ImagePicker.EXTRA_SHOW_CAMERA, false);
+        intent.putExtra(ImagePicker.EXTRA_FOLDER_TITLE, "Album");
+        intent.putExtra(ImagePicker.EXTRA_IMAGE_TITLE, "Tap to select images");
+        intent.putExtra(ImagePicker.EXTRA_RETURN_AFTER_FIRST, true); //default is false
+
+        startActivityForResult(intent, Constant.CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == Constant.CODE && resultCode == RESULT_OK && data != null) {
+            Image image = ImagePicker.getImages(data).get(0);
+            imagePath = image.getPath();
+            imageView.setImageURI(Utils.getUri(imagePath));
+        }
+    }
+
     @Click(R.id.btn_color)
     protected void btnColorClick() {
         ColorPickerDialog dialog = ColorPickerDialog.newInstance(
@@ -130,7 +167,7 @@ public class EditDetailActivity extends ActivityWithToolbar
         dialog.setOnColorSelectedListener(new ColorPickerSwatch.OnColorSelectedListener() {
             @Override
             public void onColorSelected(int c) {
-                color = c;
+                priorityColor = c;
                 colorBtn.setBackgroundColor(c);
                 changeColor(c);
             }
@@ -162,11 +199,13 @@ public class EditDetailActivity extends ActivityWithToolbar
         if (id < 0) {
             Node.construct(nodeTitle.getText().toString(),
                     nodeBody.getText().toString(),
-                    color);
+                    priorityColor,
+                    imagePath);
         } else {
             node.setTitle(nodeTitle.getText().toString());
             node.setBody(nodeBody.getText().toString());
-            node.setColor(color);
+            node.setColor(priorityColor);
+            node.setImagePath(imagePath);
             node.save();
         }
 
