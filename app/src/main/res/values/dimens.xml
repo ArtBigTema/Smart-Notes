@@ -2,4 +2,15 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="font_toolbar_elevation">5dp</dimen>
+    <dimen name="font_toolbar">20sp</dimen>
+
+    <!-- typical spacing -->
+    <dimen name="spacing_normal">16dp</dimen>
+    <dimen name="padding_normal">16dp</dimen>
+    <dimen name="margin_normal">16dp</dimen>
+    <dimen name="margin_small">10dp</dimen>
+    <dimen name="padding_micro">4dp</dimen>
+    <dimen name="margin_big">20dp</dimen>
 </resources>
