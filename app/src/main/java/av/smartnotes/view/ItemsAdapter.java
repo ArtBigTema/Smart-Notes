@@ -13,6 +13,7 @@ import av.smartnotes.R;
 import av.smartnotes.activity.DetailActivity_;
 import av.smartnotes.activity.EditDetailActivity_;
 import av.smartnotes.substance.Node;
+import av.smartnotes.substance.controller.NodeController;
 
 /**
  * Created by Artem on 17.01.2017.
@@ -22,8 +23,8 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
     private List<Node> list = Collections.emptyList();
     private final int LAYOUT = R.layout.rv_item;
 
-    public ItemsAdapter(List<Node> list) {
-        this.list = list;
+    public ItemsAdapter() {
+        this.list = NodeController.getAbsAll();
     }
 
     @Override
@@ -64,9 +65,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
         public void onClick(View v) {
             DetailActivity_
                     .intent(v.getContext())
-                    .title(item.getTitle())
-                    .body(item.getBody())
-                    .id(list.indexOf(item))//fixme
+                    .id(item.getId())
                     .start();
         }
 
@@ -74,9 +73,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
         public boolean onLongClick(View v) {
             EditDetailActivity_
                     .intent(v.getContext())
-                    .title(item.getTitle())
-                    .body(item.getBody())
-                    .id(list.indexOf(item))//fixme
+                    .id(item.getId())
                     .start();
 
             return true;

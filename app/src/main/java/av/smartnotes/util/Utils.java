@@ -28,7 +28,9 @@ public class Utils {
     public static final String TAG = Utils.class.getName();
 
     public static String toJson(Object object) {
-        Gson gson = new GsonBuilder().create();
+        Gson gson = new GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation()
+                .create();
         return gson.toJson(object);
     }
 

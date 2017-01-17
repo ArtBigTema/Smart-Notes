@@ -1,14 +1,31 @@
 package av.smartnotes.substance;
 
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
+import com.google.gson.annotations.Expose;
+
 /**
  * Created by Artem on 17.01.2017.
  */
 
-public class Node {
+@Table(name = "Node", id = "id")
+public class Node extends Model {
+
+    @Expose
+    @Column(name = "title")
     private String title;
+
+    @Expose
+    @Column(name = "body")
     private String body;
 
+    public Node() {//Don't delete crash at first init
+        super();
+    }
+
     public Node(String title, String body) {
+        this();
         this.title = title;
         this.body = body;
     }
@@ -30,7 +47,10 @@ public class Node {
     }
 
     public static Node construct(String title, String body) {
-        return new Node(title, body);
+        // long ms = System.currentTimeMillis();
+        Node node = new Node(title, body);
+        node.save();
+        return node;
     }
 
     @Override

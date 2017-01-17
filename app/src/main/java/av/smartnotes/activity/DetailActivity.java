@@ -17,7 +17,8 @@ import org.androidannotations.annotations.ViewById;
 
 import av.smartnotes.R;
 import av.smartnotes.activity.activity_with.ActivityWithToolbar;
-import av.smartnotes.substance.CollectionsManager;
+import av.smartnotes.substance.Node;
+import av.smartnotes.substance.controller.NodeController;
 import av.smartnotes.util.Constant;
 
 /**
@@ -36,15 +37,14 @@ public class DetailActivity extends ActivityWithToolbar
     protected FloatingActionButton fab;
 
     @Extra
-    protected String title;
-    @Extra
-    protected String body;
-    @Extra
-    protected int id = -1;
+    protected long id = -1;
+
+    private Node node;
 
     @AfterViews
     public void afterView() {
         super.afterView();
+        node = NodeController.get(id);
 
         setToolbarTitle(R.string.app_name);
         displayHomeArrow();
@@ -53,11 +53,12 @@ public class DetailActivity extends ActivityWithToolbar
     }
 
     private void setViews() {
-        if (!TextUtils.isEmpty(title) && !TextUtils.isEmpty(body)) {
+        if (!TextUtils.isEmpty(node.getTitle())
+                && !TextUtils.isEmpty(node.getBody())) {
             setToolbarEditButton(this);
 
-            nodeTitle.setText(title);
-            nodeBody.setText(body);
+            nodeTitle.setText(node.getTitle());
+            nodeBody.setText(node.getBody());
         }
     }
 
@@ -68,7 +69,7 @@ public class DetailActivity extends ActivityWithToolbar
 
     @Click(R.id.fab)
     protected void fabClick() {
-        CollectionsManager.getInstance().remove(id);
+        node.delete();
         finish();
     }
 
@@ -86,8 +87,6 @@ public class DetailActivity extends ActivityWithToolbar
             public void run() {
                 EditDetailActivity_
                         .intent(DetailActivity.this)
-                        .title(title)
-                        .body(body)
                         .id(id)
                         .start();
 

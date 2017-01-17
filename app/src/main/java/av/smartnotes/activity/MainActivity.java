@@ -20,7 +20,7 @@ import org.androidannotations.annotations.ViewById;
 
 import av.smartnotes.R;
 import av.smartnotes.activity.activity_with.ActivityWithToolbar;
-import av.smartnotes.substance.CollectionsManager;
+import av.smartnotes.substance.controller.NodeController;
 import av.smartnotes.util.FileController;
 import av.smartnotes.util.Utils;
 import av.smartnotes.view.DividerItemDecoration;
@@ -50,9 +50,9 @@ public class MainActivity extends ActivityWithToolbar
     protected void onResume() {
         super.onResume();
 
-        if (!CollectionsManager.getInstance().isEmpty()) {
+        if (!NodeController.isEmpty()) {
             recyclerView.swapAdapter(
-                    new ItemsAdapter(CollectionsManager.getInstance().getItemList()),
+                    new ItemsAdapter(),
                     false);
         }
     }
@@ -64,7 +64,7 @@ public class MainActivity extends ActivityWithToolbar
     }
 
     private void showTooltip() {
-        if (CollectionsManager.getInstance().isEmpty()) {
+        if (NodeController.isEmpty()) {
             Utils.showTooltipTop(fab,
                     getString(R.string.hint_fab));
         }
@@ -73,8 +73,7 @@ public class MainActivity extends ActivityWithToolbar
     private void setRecycleView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        recyclerView.setAdapter(
-                new ItemsAdapter(CollectionsManager.getInstance().getItemList()));
+        recyclerView.setAdapter(new ItemsAdapter());
 
         recyclerView.addItemDecoration(new DividerItemDecoration(5));
 
@@ -92,15 +91,14 @@ public class MainActivity extends ActivityWithToolbar
     }
 
     private void addTestDataToList() {
-        CollectionsManager.getInstance().createList();
+        NodeController.createList();
 
-        recyclerView.setAdapter(
-                new ItemsAdapter(CollectionsManager.getInstance().getItemList()));
+        recyclerView.setAdapter(new ItemsAdapter());
     }
 
     @Override
     public void onClick(View v) {
-        if (CollectionsManager.getInstance().isEmpty()) {
+        if (NodeController.isEmpty()) {
             new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.DialogTheme))
                     .setTitle(R.string.alert_dialog_title)
                     .setMessage(R.string.alert_dialog_body_export)
@@ -115,7 +113,7 @@ public class MainActivity extends ActivityWithToolbar
 
     @Background
     protected void saveList() {
-        FileController.writeTextToFile(this, CollectionsManager.getInstance().toJson());
+        FileController.writeTextToFile(this, Utils.toJson(NodeController.getAbsAll()));
         // if error do smth
     }
 
@@ -134,15 +132,13 @@ public class MainActivity extends ActivityWithToolbar
     protected void readListFromFile() {
         Object json = FileController.readJson(this);
         if (json != null && json instanceof String) {
-            CollectionsManager.getInstance().addList(
-                    Utils.parseItems(String.class.cast(json)));
+            NodeController.swapList(Utils.parseItems(String.class.cast(json)));
             setAdapter();
         }
     }
 
     @UiThread
     protected void setAdapter() {
-        recyclerView.setAdapter(
-                new ItemsAdapter(CollectionsManager.getInstance().getItemList()));
+        recyclerView.setAdapter(new ItemsAdapter());
     }
 }
