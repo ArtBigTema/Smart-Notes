@@ -2,10 +2,9 @@
 <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rv_main"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:fadeScrollbars="true"
     android:orientation="vertical"
-    android:padding="@dimen/padding_micro"
     android:scrollbarSize="@dimen/scrollbar_thumb_size"
     android:scrollbarThumbVertical="@drawable/scrollbar_thumb"
     android:scrollbars="vertical">

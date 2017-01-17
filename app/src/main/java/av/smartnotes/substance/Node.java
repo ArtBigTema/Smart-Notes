@@ -8,6 +8,11 @@ public class Node {
     private String title;
     private String body;
 
+    public Node(String title, String body) {
+        this.title = title;
+        this.body = body;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -22,6 +27,10 @@ public class Node {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public static Node construct(String title, String body) {
+        return new Node(title, body);
     }
 
     @Override

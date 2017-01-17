@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 import av.smartnotes.R;
+import av.smartnotes.substance.CollectionsManager;
 import av.smartnotes.substance.Node;
 
 /**
@@ -20,10 +21,18 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
     private List<Node> list = Collections.emptyList();
     private final int LAYOUT = R.layout.rv_item;
 
+    public ItemsAdapter() {
+
+    }
+
+    public ItemsAdapter(List<Node> list) {
+        this.list = list;
+    }
+
     @Override
     public ItemsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemLayoutView = LayoutInflater.from(parent.getContext())
-                .inflate(LAYOUT, null);
+                .inflate(LAYOUT, parent, false);
         return new ItemsViewHolder(itemLayoutView);
     }
 

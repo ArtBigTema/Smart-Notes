@@ -7,10 +7,11 @@
     <dimen name="font_toolbar">20sp</dimen>
 
     <!-- typical spacing -->
-    <dimen name="spacing_normal">16dp</dimen>
+    <dimen name="padding_small">10dp</dimen>
     <dimen name="padding_normal">16dp</dimen>
     <dimen name="margin_normal">16dp</dimen>
     <dimen name="margin_small">10dp</dimen>
+    <dimen name="margin_micro">4dp</dimen>
     <dimen name="padding_micro">4dp</dimen>
     <dimen name="margin_big">20dp</dimen>
 
