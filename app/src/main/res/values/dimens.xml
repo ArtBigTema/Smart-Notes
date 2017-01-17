@@ -13,4 +13,8 @@
     <dimen name="margin_small">10dp</dimen>
     <dimen name="padding_micro">4dp</dimen>
     <dimen name="margin_big">20dp</dimen>
+
+
+    <dimen name="scrollbar_thumb_size">3dp</dimen>
+    <dimen name="scrollbar_thumb_radius">2dp</dimen>
 </resources>
