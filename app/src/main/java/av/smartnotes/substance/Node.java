@@ -40,4 +40,12 @@ public class Node {
                 ", body='" + body + '\'' +
                 '}';
     }
+
+    public String toText() {
+        // return toString();
+        return "Node:" +
+                " title='" + title + '\'' +
+                ", body='" + body + '\'' +
+                "; ";
+    }
 }

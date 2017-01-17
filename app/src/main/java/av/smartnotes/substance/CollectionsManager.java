@@ -67,4 +67,13 @@ public class CollectionsManager {
     public void clear() {
         itemList.clear();
     }
+
+    public String toText() {
+        StringBuilder sb = new StringBuilder();
+        for (Node node : itemList) {
+            sb.append(node.toText());
+            sb.append("\r\n");
+        }
+        return sb.toString();
+    }
 }
