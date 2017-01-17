@@ -1,6 +1,9 @@
 package av.smartnotes.activity;
 
+import android.content.DialogInterface;
 import android.os.Handler;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.view.ContextThemeWrapper;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -70,6 +73,34 @@ public class EditDetailActivity extends ActivityWithToolbar
         onBackPressed();
     }
 
+    @Override
+    public void onBackPressed() {
+        if (!Utils.validText(nodeTitle.getText()) || !Utils.validText(nodeBody.getText())) {
+            super.onBackPressed();
+            return;
+        }
+
+        AlertDialog.Builder dialog = new AlertDialog.Builder(
+                new ContextThemeWrapper(this, R.style.DialogTheme));
+        dialog.setTitle(R.string.alert_dialog_title);
+        dialog.setMessage(R.string.alert_dialog_body_close);
+
+        dialog.setPositiveButton(R.string.alert_dialog_btn_ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                EditDetailActivity.this.onClick(null);
+            }
+        });
+        dialog.setNegativeButton(R.string.alert_dialog_btn_no, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+
+        dialog.create().show();
+    }
+
     @Click(R.id.fab)
     protected void fabClick() {
         CollectionsManager.getInstance().remove(id);
@@ -82,7 +113,12 @@ public class EditDetailActivity extends ActivityWithToolbar
             markToolbarButton(false);
             disableToolbar();
         } else {
-            // todo show dlg
+            new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.DialogTheme))
+                    .setTitle(R.string.alert_dialog_title)
+                    .setMessage(R.string.alert_dialog_body_save)
+                    .setCancelable(true)
+                    .create()
+                    .show();
         }
     }
 

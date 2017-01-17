@@ -8,4 +8,11 @@
     Долгое нажатие приведет к автозаполнению списка</string>
 
     <string name="empty_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+
+    <!-- dialogs -->
+    <string name="alert_dialog_title">Внимание</string>
+    <string name="alert_dialog_body_save">Пожалуйста, заполните поля более информативно</string>
+    <string name="alert_dialog_body_close">Сохранить заметку перед выходом?</string>
+    <string name="alert_dialog_btn_ok">Да</string><!-- android.R.string.ok -->
+    <string name="alert_dialog_btn_no">Нет</string><!-- android.R.string.no -->
 </resources>

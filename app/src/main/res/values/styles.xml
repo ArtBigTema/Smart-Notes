@@ -23,4 +23,10 @@
         <item name="android:panelColorBackground">@android:color/transparent</item>
         <item name="android:textSize">@dimen/font_toolbar</item>
     </style>
+
+    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@color/colorPrimary</item>
+        <item name="android:background">@color/white</item>
+    </style>
 </resources>
