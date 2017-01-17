@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Pair;
 import android.view.Gravity;
 import android.view.View;
 
@@ -14,6 +15,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import av.smartnotes.R;
@@ -68,5 +70,16 @@ public class Utils {
 
     public static void showTooltipTop(View anchorView, String text) {
         showTooltip(anchorView, text, Gravity.TOP);
+    }
+
+    public static String[] arrPairsToArrStr(Pair<String, String>[] pairs) {
+        if (pairs == null) {
+            return new String[0];
+        }
+        List<String> newNames = new LinkedList<>();
+        for (Pair<String, String> p : pairs) {
+            newNames.add(p.first + p.second);
+        }
+        return newNames.toArray(new String[newNames.size()]);
     }
 }

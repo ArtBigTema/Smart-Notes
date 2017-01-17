@@ -123,9 +123,8 @@ public class MainActivity extends ActivityWithToolbar
             readListFromFile();
         } else {
             Toast.makeText(this, "File not found", Toast.LENGTH_SHORT).show();
-            return false;
         }
-        return true;
+        return false;
     }
 
     @Background

@@ -18,6 +18,7 @@ import org.androidannotations.annotations.ViewById;
 import av.smartnotes.R;
 import av.smartnotes.activity.activity_with.ActivityWithToolbar;
 import av.smartnotes.substance.Node;
+import av.smartnotes.substance.Priority;
 import av.smartnotes.substance.controller.NodeController;
 import av.smartnotes.util.Constant;
 
@@ -44,14 +45,14 @@ public class DetailActivity extends ActivityWithToolbar
     @AfterViews
     public void afterView() {
         super.afterView();
+        setToolbarTitle(R.string.app_name);
         node = NodeController.get(id);
 
-        setToolbarTitle(R.string.app_name);
         displayHomeArrow();
 
         setViews();
 
-        //  changeColor(Color.RED);
+        changeColor(Priority.values()[node.getPriority()].id());
     }
 
     private void setViews() {

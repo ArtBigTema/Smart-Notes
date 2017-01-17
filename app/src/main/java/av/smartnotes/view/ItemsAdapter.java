@@ -1,5 +1,7 @@
 package av.smartnotes.view;
 
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,7 @@ import av.smartnotes.R;
 import av.smartnotes.activity.DetailActivity_;
 import av.smartnotes.activity.EditDetailActivity_;
 import av.smartnotes.substance.Node;
+import av.smartnotes.substance.Priority;
 import av.smartnotes.substance.controller.NodeController;
 
 /**
@@ -59,6 +62,13 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
             item = node;
             TextView title = (TextView) itemView.findViewById(R.id.tv_node_title);
             title.setText(node.getTitle());
+            title.setTextColor(Priority.values()[node.getPriority()].id());
+
+            if (itemView instanceof CardView) {
+                ((CardView) itemView).setCardBackgroundColor(ContextCompat.getColor(itemView.getContext(), R.color.colorAccent));
+            } else {
+                itemView.setBackgroundColor(ContextCompat.getColor(itemView.getContext(), R.color.colorAccent));
+            }
         }
 
         @Override

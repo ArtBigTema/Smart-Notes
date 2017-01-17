@@ -24,6 +24,7 @@ import org.androidannotations.annotations.ViewById;
 import av.smartnotes.R;
 import av.smartnotes.activity.activity_with.ActivityWithToolbar;
 import av.smartnotes.substance.Node;
+import av.smartnotes.substance.Priority;
 import av.smartnotes.substance.controller.NodeController;
 import av.smartnotes.util.Constant;
 import av.smartnotes.util.Utils;
@@ -70,6 +71,7 @@ public class EditDetailActivity extends ActivityWithToolbar
         if (id > -1) {
             nodeTitle.setText(node.getTitle());
             nodeBody.setText(node.getBody());
+            colorBtn.setBackgroundColor(Priority.values()[node.getPriority()].id());
         } else {
             fab.setVisibility(View.GONE);
         }
@@ -158,10 +160,13 @@ public class EditDetailActivity extends ActivityWithToolbar
         }
 
         if (id < 0) {
-            Node.construct(nodeTitle.getText().toString(), nodeBody.getText().toString());
+            Node.construct(nodeTitle.getText().toString(),
+                    nodeBody.getText().toString(),
+                    color);
         } else {
             node.setTitle(nodeTitle.getText().toString());
             node.setBody(nodeBody.getText().toString());
+            node.setColor(color);
             node.save();
         }
 

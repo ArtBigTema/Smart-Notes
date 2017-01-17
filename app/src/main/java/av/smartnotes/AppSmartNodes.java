@@ -8,6 +8,7 @@ import com.activeandroid.Configuration;
 import org.androidannotations.annotations.EApplication;
 
 import av.smartnotes.substance.Node;
+import av.smartnotes.substance.controller.NodeController;
 
 /**
  * Created by Artem on 17.01.2017.
@@ -20,9 +21,10 @@ public class AppSmartNodes extends Application {
 
         Configuration.Builder configurationBuilder = new Configuration.Builder(this);
         configurationBuilder.addModelClass(Node.class);
-        configurationBuilder.setDatabaseVersion(1);
+        configurationBuilder.setDatabaseVersion(2);
         ActiveAndroid.initialize(configurationBuilder.create());
 
+        NodeController.updatePostDb();
     }
 
     @Override
