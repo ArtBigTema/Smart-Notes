@@ -27,6 +27,8 @@ public class MainActivity extends ActivityWithToolbar {
 
     @AfterViews
     public void afterView() {
+        super.afterView();
+
         setToolbarTitle(R.string.app_name);
         setRecycleView();
     }
@@ -43,7 +45,7 @@ public class MainActivity extends ActivityWithToolbar {
 
     @Click(R.id.fab)
     protected void fabClick() {
-        // open addActivity
+        DetailActivity_.intent(this).start();
     }
 
     @LongClick(R.id.fab)

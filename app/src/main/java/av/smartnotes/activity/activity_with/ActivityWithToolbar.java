@@ -17,11 +17,23 @@ public class ActivityWithToolbar extends AppCompatActivity {
     @ViewById(R.id.toolbar)
     protected Toolbar toolbar;
 
+    public void afterView() {
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+        }
+    }
+
     public void setToolbarTitle(CharSequence title) {
         toolbar.setTitle(title);
     }
 
     public void setToolbarTitle(int title) {
         toolbar.setTitle(title);
+    }
+
+    protected void displayHomeArrow() {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
     }
 }

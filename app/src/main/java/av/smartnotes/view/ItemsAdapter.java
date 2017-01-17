@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 import av.smartnotes.R;
-import av.smartnotes.substance.CollectionsManager;
+import av.smartnotes.activity.DetailActivity_;
 import av.smartnotes.substance.Node;
 
 /**
@@ -65,7 +65,11 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
 
         @Override
         public void onClick(View v) {
-
+            DetailActivity_
+                    .intent(v.getContext())
+                    .title(item.getTitle())
+                    .body(item.getBody())
+                    .start();
         }
 
         @Override

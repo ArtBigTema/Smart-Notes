@@ -28,6 +28,6 @@
         android:src="@drawable/fab_plus"
         fab:fab_colorNormal="?colorPrimary"
         fab:fab_colorPressed="?colorPrimaryDark"
-        fab:fab_colorRipple="?colorPrimary"
+        fab:fab_colorRipple="?colorAccent"
         fab:fab_type="normal" />
 </RelativeLayout>
