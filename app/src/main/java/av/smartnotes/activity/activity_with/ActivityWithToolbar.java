@@ -1,6 +1,9 @@
 package av.smartnotes.activity.activity_with;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
 import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -27,7 +30,10 @@ public class ActivityWithToolbar extends AppCompatActivity {
     @ViewById(R.id.toolbar_button)
     protected MaterialFavoriteButton toolbarButton;
 
+    private int oldToolbarColor;
+
     public void afterView() {
+        oldToolbarColor = ContextCompat.getColor(this, R.color.colorPrimary);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
         }
@@ -72,6 +78,7 @@ public class ActivityWithToolbar extends AppCompatActivity {
 
     protected void setToolbarSaveButton(MaterialFavoriteButton.OnClickListener listener, boolean favorite) {
         toolbarButton.setVisibility(View.VISIBLE);
+        toolbarButton.setBackgroundColor(Color.TRANSPARENT);
         toolbarButton.setFavoriteResource(R.drawable.icon_floppy);
         toolbarButton.setNotFavoriteResource(R.drawable.icon_ok);
         toolbarButton.setFavorite(favorite);
@@ -83,6 +90,7 @@ public class ActivityWithToolbar extends AppCompatActivity {
 
     protected void setToolbarEditButton(MaterialFavoriteButton.OnClickListener listener) {
         toolbarButton.setVisibility(View.VISIBLE);
+        toolbarButton.setBackgroundColor(Color.TRANSPARENT);
         toolbarButton.setFavoriteResource(R.drawable.icon_edit);
         toolbarButton.setOnClickListener(listener);
         toolbarButton.setNotFavoriteResource(R.drawable.icon_ok);
@@ -95,6 +103,7 @@ public class ActivityWithToolbar extends AppCompatActivity {
     protected void setToolbarExportButton(MaterialFavoriteButton.OnClickListener clickListener,
                                           MaterialFavoriteButton.OnLongClickListener listener) {
         toolbarButton.setVisibility(View.VISIBLE);
+        toolbarButton.setBackgroundColor(Color.TRANSPARENT);
         toolbarButton.setFavoriteResource(R.drawable.icon_file_export);
         toolbarButton.setOnClickListener(clickListener);
         toolbarButton.setOnLongClickListener(listener);
@@ -112,5 +121,22 @@ public class ActivityWithToolbar extends AppCompatActivity {
     protected void disableToolbar() {
         //  toolbarButton.setEnabled(false);
         toolbar.setEnabled(false);
+    }
+
+    protected void changeColor(int color) {
+        ValueAnimator colorAnimation =
+                ValueAnimator.ofObject(new ArgbEvaluator(), oldToolbarColor, color);
+        colorAnimation.setDuration(Constant.DURATION_CHANGE_TOOLBAR_COLOR);
+
+
+        colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+
+            @Override
+            public void onAnimationUpdate(ValueAnimator animator) {
+                toolbar.setTitleTextColor((int) animator.getAnimatedValue());
+            }
+
+        });
+        colorAnimation.start();
     }
 }

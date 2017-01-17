@@ -31,6 +31,13 @@
                 android:textSize="@dimen/font_detail_title" />
         </android.support.design.widget.TextInputLayout>
 
+        <Button
+            android:id="@+id/btn_color"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:text="@string/color_picker_default_title" />
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">

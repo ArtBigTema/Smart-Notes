@@ -1,1 +1,1 @@
-include ':app', ':library_tooltips'
+include ':app', ':library_tooltips', ':library_color_picker'

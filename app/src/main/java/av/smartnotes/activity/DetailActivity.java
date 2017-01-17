@@ -50,6 +50,8 @@ public class DetailActivity extends ActivityWithToolbar
         displayHomeArrow();
 
         setViews();
+
+        //  changeColor(Color.RED);
     }
 
     private void setViews() {

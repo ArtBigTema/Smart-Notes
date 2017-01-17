@@ -60,4 +60,5 @@ dependencies {
     debugCompile 'com.amitshekhar.android:debug-db:0.4.0'
 
     compile project(path: ':library_tooltips')
+    compile project(path: ':library_color_picker')
 }

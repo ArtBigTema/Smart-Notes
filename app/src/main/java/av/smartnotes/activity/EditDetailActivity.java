@@ -1,14 +1,18 @@
 package av.smartnotes.activity;
 
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.view.ContextThemeWrapper;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.github.ivbaranov.mfb.MaterialFavoriteButton;
 import com.melnykov.fab.FloatingActionButton;
+import com.woalk.apps.lib.colorpicker.ColorPickerDialog;
+import com.woalk.apps.lib.colorpicker.ColorPickerSwatch;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -40,8 +44,13 @@ public class EditDetailActivity extends ActivityWithToolbar
     @ViewById(R.id.fab)
     protected FloatingActionButton fab;
 
+    @ViewById(R.id.btn_color)
+    protected Button colorBtn;
+
     @Extra
     protected long id = -1;
+
+    private int color;
     private Node node;
 
     @AfterViews
@@ -105,6 +114,27 @@ public class EditDetailActivity extends ActivityWithToolbar
     protected void fabClick() {
         node.delete();
         finish();
+    }
+
+    @Click(R.id.btn_color)
+    protected void btnColorClick() {
+        ColorPickerDialog dialog = ColorPickerDialog.newInstance(
+                R.string.color_picker_default_title,
+                new int[]{Color.WHITE, Color.GREEN, Color.YELLOW, Color.RED},
+                Color.TRANSPARENT,
+                5,
+                ColorPickerDialog.SIZE_SMALL);
+
+        dialog.setOnColorSelectedListener(new ColorPickerSwatch.OnColorSelectedListener() {
+            @Override
+            public void onColorSelected(int c) {
+                color = c;
+                colorBtn.setBackgroundColor(c);
+                changeColor(c);
+            }
+        });
+
+        dialog.show(getFragmentManager(), Constant.DLG_TAG);
     }
 
     @Override
