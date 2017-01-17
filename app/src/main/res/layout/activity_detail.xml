@@ -6,41 +6,31 @@
 
     <include layout="@layout/toolbar" />
 
-    <android.support.design.widget.TextInputLayout
+    <TextView
+        android:id="@+id/et_node_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:id="@+id/et_node_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_normal"
-            android:imeOptions="actionNext"
-            android:inputType="text"
-            android:maxLines="1"
-            android:padding="@dimen/padding_normal"
-            android:textAlignment="center"
-            android:textIsSelectable="false"
-            android:textSize="@dimen/font_detail_title" />
-    </android.support.design.widget.TextInputLayout>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_normal"
+        android:imeOptions="actionNext"
+        android:inputType="text"
+        android:maxLines="1"
+        android:padding="@dimen/padding_normal"
+        android:textAlignment="center"
+        android:textIsSelectable="false"
+        android:textSize="@dimen/font_detail_title" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.design.widget.TextInputLayout
+        <TextView
+            android:id="@+id/et_node_body"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/et_node_body"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="@dimen/padding_normal"
-                android:textAlignment="center"
-                android:textIsSelectable="false"
-                android:textSize="@dimen/font_detail_body" />
-        </android.support.design.widget.TextInputLayout>
+            android:layout_height="match_parent"
+            android:padding="@dimen/padding_normal"
+            android:textAlignment="center"
+            android:textIsSelectable="false"
+            android:textSize="@dimen/font_detail_body" />
     </ScrollView>
 
 </LinearLayout>

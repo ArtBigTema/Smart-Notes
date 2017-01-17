@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/tools"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
@@ -7,5 +8,14 @@
     android:elevation="@dimen/font_toolbar_elevation"
     android:theme="@style/ActionBarTheme"
     custom:titleTextAppearance="@style/ActionBar.TitleText">
+
+    <com.github.ivbaranov.mfb.MaterialFavoriteButton
+        android:id="@+id/toolbar_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:mfb_favorite_image="@drawable/fab_ok"
+        custom:mfb_animate_favorite="false"
+        custom:mfb_animate_unfavorite="false" />
 
 </android.support.v7.widget.Toolbar>

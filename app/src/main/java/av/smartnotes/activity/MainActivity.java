@@ -1,5 +1,6 @@
 package av.smartnotes.activity;
 
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -14,6 +15,7 @@ import org.androidannotations.annotations.ViewById;
 import av.smartnotes.R;
 import av.smartnotes.activity.activity_with.ActivityWithToolbar;
 import av.smartnotes.substance.CollectionsManager;
+import av.smartnotes.util.Utils;
 import av.smartnotes.view.DividerItemDecoration;
 import av.smartnotes.view.ItemsAdapter;
 
@@ -31,13 +33,39 @@ public class MainActivity extends ActivityWithToolbar {
 
         setToolbarTitle(R.string.app_name);
         setRecycleView();
+
+        showTooltip();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        recyclerView.swapAdapter(
+                new ItemsAdapter(CollectionsManager.getInstance().getItemList()),
+                false);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        CollectionsManager.getInstance().clear();
+    }
+
+    private void showTooltip() {
+        if (CollectionsManager.getInstance().isEmpty()) {
+            Utils.showTooltip(fab,
+                    getString(R.string.hint_fab),
+                    ContextCompat.getColor(this, R.color.colorPrimary));
+        }
     }
 
     private void setRecycleView() {
-        CollectionsManager.getInstance().createList();
-
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new ItemsAdapter());
+
+        recyclerView.setAdapter(
+                new ItemsAdapter(CollectionsManager.getInstance().getItemList()));
+
         recyclerView.addItemDecoration(new DividerItemDecoration(5));
 
         fab.attachToRecyclerView(recyclerView);
@@ -45,7 +73,7 @@ public class MainActivity extends ActivityWithToolbar {
 
     @Click(R.id.fab)
     protected void fabClick() {
-        DetailActivity_.intent(this).start();
+        EditDetailActivity_.intent(this).start();
     }
 
     @LongClick(R.id.fab)
@@ -55,6 +83,8 @@ public class MainActivity extends ActivityWithToolbar {
 
 
     private void addTestDataToList() {
+        CollectionsManager.getInstance().createList();
+
         recyclerView.setAdapter(
                 new ItemsAdapter(CollectionsManager.getInstance().getItemList()));
     }

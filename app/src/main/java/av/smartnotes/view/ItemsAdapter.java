@@ -11,6 +11,7 @@ import java.util.List;
 
 import av.smartnotes.R;
 import av.smartnotes.activity.DetailActivity_;
+import av.smartnotes.activity.EditDetailActivity_;
 import av.smartnotes.substance.Node;
 
 /**
@@ -20,10 +21,6 @@ import av.smartnotes.substance.Node;
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHolder> {
     private List<Node> list = Collections.emptyList();
     private final int LAYOUT = R.layout.rv_item;
-
-    public ItemsAdapter() {
-
-    }
 
     public ItemsAdapter(List<Node> list) {
         this.list = list;
@@ -69,11 +66,19 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
                     .intent(v.getContext())
                     .title(item.getTitle())
                     .body(item.getBody())
+                    .id(list.indexOf(item))//fixme
                     .start();
         }
 
         @Override
         public boolean onLongClick(View v) {
+            EditDetailActivity_
+                    .intent(v.getContext())
+                    .title(item.getTitle())
+                    .body(item.getBody())
+                    .id(list.indexOf(item))//fixme
+                    .start();
+
             return true;
         }
     }
