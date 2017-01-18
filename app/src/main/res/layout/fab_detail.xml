@@ -27,6 +27,13 @@
         fab:menu_labels_style="@style/MenuLabelsStyle" />
 
     <com.github.clans.fab.FloatingActionButton
+        android:id="@+id/fab_share_geo"
+        style="@style/MenuButtonsStyle"
+        android:src="@drawable/icon_map_share"
+        fab:fab_label="@string/fab_label_share_geo"
+        fab:menu_labels_style="@style/MenuLabelsStyle" />
+
+    <com.github.clans.fab.FloatingActionButton
         android:id="@+id/fab_share"
         style="@style/MenuButtonsStyle"
         android:src="@drawable/icon_share"

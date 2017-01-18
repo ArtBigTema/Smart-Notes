@@ -102,7 +102,29 @@ public class DetailActivity extends ActivityWithFabMenu
 
     @Click(R.id.fab_share)
     protected void fabShareClick() {
-        //show intent chooser
+        Intent shareIntent = new Intent();
+
+        if (!TextUtils.isEmpty(node.getImagePath())) {
+            Uri imageUri = Uri.parse("file://" + node.getImagePath());
+            shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
+            shareIntent.setType("image/*");
+        } else {
+            shareIntent.setType("text/*");
+        }
+
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.putExtra(Intent.EXTRA_TEXT, node.toText());
+        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        startActivity(Intent.createChooser(shareIntent, "send"));
+    }
+
+    @Click(R.id.fab_share_geo)
+    protected void fabShareGeoClick() {
+        Intent shareIntent = new Intent();
+        Uri geo = Uri.parse("geo:" + node.getLat() + ',' + node.getLng());
+        shareIntent.setAction(Intent.ACTION_VIEW);
+        shareIntent.setData(geo);
+        startActivity(Intent.createChooser(shareIntent, "view by"));
     }
 
     @Click(R.id.iv_node)

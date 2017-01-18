@@ -110,8 +110,9 @@ public class Node extends Model {
     public String toText() {
         // return toString();
         return "Node:" +
-                " title='" + title + '\'' +
-                ", body='" + body + '\'' +
+                " title = '" + title + '\'' +
+                ", body = '" + body + '\'' +
+                ", geo = '" + lat + ':' + lng + '\'' +
                 "; ";
     }
 }
