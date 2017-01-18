@@ -81,12 +81,14 @@ public class EditDetailActivity extends ActivityWithToolbar
         if (id > -1) {
             nodeTitle.setText(node.getTitle());
             nodeBody.setText(node.getBody());
-            colorBtn.setBackgroundColor(Priority.values()[node.getPriority()].id());
+            priorityColor = Priority.values()[node.getPriority()].id();
+            colorBtn.setBackgroundColor(priorityColor);
 
             if (!TextUtils.isEmpty(node.getImagePath())) {
                 imageView.setImageURI(Utils.getUri(node.getImagePath()));
             }
         } else {
+            priorityColor = Color.WHITE;
             fab.setVisibility(View.GONE);
         }
 
@@ -160,7 +162,7 @@ public class EditDetailActivity extends ActivityWithToolbar
         ColorPickerDialog dialog = ColorPickerDialog.newInstance(
                 R.string.color_picker_default_title,
                 new int[]{Color.WHITE, Color.GREEN, Color.YELLOW, Color.RED},
-                Color.TRANSPARENT,
+                priorityColor,
                 5,
                 ColorPickerDialog.SIZE_SMALL);
 
