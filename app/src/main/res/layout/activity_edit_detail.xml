@@ -18,8 +18,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:adjustViewBounds="true"
-            android:maxHeight="@dimen/image_view_height"
-            android:maxWidth="@dimen/image_view_width"
+            android:maxHeight="@dimen/image_view_size_small"
+            android:maxWidth="@dimen/image_view_size_small"
             fab:srcCompat="@mipmap/ic_launcher" />
 
         <android.support.design.widget.TextInputLayout

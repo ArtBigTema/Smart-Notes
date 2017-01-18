@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.ivbaranov.mfb.MaterialFavoriteButton;
 
@@ -78,7 +79,11 @@ public class DetailActivity extends ActivityWithFabMenu
             nodeTitle.setText(node.getTitle());
             nodeBody.setText(node.getBody());
             if (!TextUtils.isEmpty(node.getImagePath())) {
-                imageView.setImageURI(Utils.getUri(node.getImagePath()));
+                // imageView.setImageURI(Utils.getUri(node.getImagePath()));
+                Glide.with(this)
+                        .load(Utils.getUri(node.getImagePath()))
+                        .error(R.drawable.error)
+                        .into(imageView);
             }
         }
     }

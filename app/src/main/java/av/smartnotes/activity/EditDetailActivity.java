@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.esafirm.imagepicker.features.ImagePicker;
 import com.esafirm.imagepicker.model.Image;
 import com.github.clans.fab.FloatingActionButton;
@@ -90,7 +91,11 @@ public class EditDetailActivity extends ActivityWithFabMenu
             priorityColor = Priority.values()[node.getPriority()].id();
 
             if (!TextUtils.isEmpty(node.getImagePath())) {
-                imageView.setImageURI(Utils.getUri(node.getImagePath()));
+                // imageView.setImageURI(Utils.getUri(node.getImagePath()));
+                Glide.with(this)
+                        .load(Utils.getUri(node.getImagePath()))
+                        .error(R.drawable.error)
+                        .into(imageView);
             }
         } else {
             priorityColor = Color.BLUE;
@@ -159,7 +164,12 @@ public class EditDetailActivity extends ActivityWithFabMenu
         if (requestCode == Constant.CODE && resultCode == RESULT_OK && data != null) {
             Image image = ImagePicker.getImages(data).get(0);
             imagePath = image.getPath();
-            imageView.setImageURI(Utils.getUri(imagePath));
+
+            // imageView.setImageURI(Utils.getUri(imagePath));
+            Glide.with(this)
+                    .load(Utils.getUri(imagePath))
+                    .error(R.drawable.error)
+                    .into(imageView);
         }
         if (requestCode == Constant.CODE_MAP && resultCode == RESULT_OK && data != null) {
             node.setLat(data.getDoubleExtra(Constant.EXTRA_LAT, 0d));
