@@ -29,4 +29,23 @@
         <item name="android:textColorPrimary">@color/colorPrimary</item>
         <item name="android:background">@color/white</item>
     </style>
+
+    <style name="MenuButtonsStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="fab_size">mini</item>
+        <item name="fab_shadowColor">@color/darker_gray</item>
+        <item name="fab_colorNormal">?colorPrimary</item>
+        <item name="fab_colorPressed">?colorPrimaryDark</item>
+        <item name="fab_colorRipple">?colorAccent</item>
+    </style>
+
+    <style name="MenuLabelsStyle">
+        <item name="android:background">@drawable/fab_label_background</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/font_fab_label</item>
+        <item name="android:maxLines">1</item>
+        <item name="fab_shadowColor">?colorPrimary</item>
+        <item name="android:ellipsize">end</item>
+    </style>
 </resources>

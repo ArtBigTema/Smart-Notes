@@ -3,9 +3,7 @@
 
     <string name="hint_title">Введите заголовок заметки</string>
     <string name="hint_body">Введите описание заметки</string>
-
-    <string name="hint_fab">Нажмите, чтобы добавить заметку, \r\n
-    Долгое нажатие приведет к автозаполнению списка</string>
+    <string name="hint_fab">Долгое нажатие на кнопку \"Добавить заметку\" приведет к автозаполнению списка</string>
 
     <string name="empty_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
 
@@ -20,4 +18,10 @@
 
     <string name="color_picker_default_title">Выберите важность заметки</string>
 
+    <!-- fab -->
+    <string name="fab_label_add">Добавить заметку</string>
+    <string name="fab_label_map">Открыть карту</string>
+    <string name="fab_label_add_geo">Указать гео метку</string>
+    <string name="fab_label_delete">Удалить заметку</string>
+    <string name="fab_label_share">Поделиться</string>
 </resources>

@@ -32,13 +32,13 @@ public class Node extends Model {
 
     public Node() {//Don't delete crash at first init
         super();
+        priority = Color.WHITE;
     }
 
     public Node(String title, String body) {
         this();
         this.title = title;
         this.body = body;
-        priority = Color.WHITE;
         imagePath = "";
     }
 

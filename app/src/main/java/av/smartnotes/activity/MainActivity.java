@@ -4,11 +4,12 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Toast;
 
+import com.github.clans.fab.FloatingActionMenu;
 import com.github.ivbaranov.mfb.MaterialFavoriteButton;
-import com.melnykov.fab.FloatingActionButton;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
@@ -29,11 +30,12 @@ import av.smartnotes.view.ItemsAdapter;
 @EActivity(R.layout.activity_main)
 public class MainActivity extends ActivityWithToolbar
         implements MaterialFavoriteButton.OnClickListener, MaterialFavoriteButton.OnLongClickListener {
+
     @ViewById(R.id.rv_main)
     protected RecyclerView recyclerView;
 
-    @ViewById(R.id.fab)
-    protected FloatingActionButton fab;
+    @ViewById(R.id.fab_main)
+    protected FloatingActionMenu fab;
 
     @AfterViews
     public void afterView() {
@@ -42,13 +44,15 @@ public class MainActivity extends ActivityWithToolbar
         setToolbarTitle(R.string.app_name);
         setRecycleView();
 
-        showTooltip();
+        showInitDlg();
         setToolbarExportButton(this, this);
+        fab.setClosedOnTouchOutside(true);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        fab.showMenu(true);
 
         if (!NodeController.isEmpty()) {
             recyclerView.swapAdapter(
@@ -58,15 +62,25 @@ public class MainActivity extends ActivityWithToolbar
     }
 
     @Override
+    protected void onPause() {
+        fab.hideMenu(true);
+        super.onPause();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         // CollectionsManager.getInstance().clear();
     }
 
-    private void showTooltip() {
+    private void showInitDlg() {
         if (NodeController.isEmpty()) {
-            Utils.showTooltipTop(fab,
-                    getString(R.string.hint_fab));
+            new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.DialogTheme))
+                    .setTitle(R.string.alert_dialog_title)
+                    .setMessage(R.string.hint_fab)
+                    .setCancelable(true)
+                    .create()
+                    .show();
         }
     }
 
@@ -77,15 +91,34 @@ public class MainActivity extends ActivityWithToolbar
 
         recyclerView.addItemDecoration(new DividerItemDecoration(5));
 
-        fab.attachToRecyclerView(recyclerView);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                toggleFab(dy > 0);
+            }
+        });
     }
 
-    @Click(R.id.fab)
-    protected void fabClick() {
+    private void toggleFab(boolean hide) {
+        if (hide) {
+            fab.hideMenu(true);
+        } else {
+            fab.showMenu(true);
+        }
+    }
+
+    @Click(R.id.fab_add)
+    protected void clickFabAdd() {
         EditDetailActivity_.intent(this).start();
     }
 
-    @LongClick(R.id.fab)
+    @Click(R.id.fab_map)
+    protected void clickFabMap() {
+        //open map
+    }
+
+    @LongClick(R.id.fab_add)
     protected void fabLongClick() {
         addTestDataToList();
     }
@@ -139,5 +172,24 @@ public class MainActivity extends ActivityWithToolbar
     @UiThread
     protected void setAdapter() {
         recyclerView.setAdapter(new ItemsAdapter());
+    }
+
+    @Override
+    public boolean onKeyDown(int keycode, KeyEvent e) {
+        switch (keycode) {
+            case KeyEvent.KEYCODE_MENU:
+                fab.toggle(true);
+                return true;
+        }
+        return super.onKeyDown(keycode, e);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (fab.isOpened()) {
+            fab.toggle(true);
+        } else {
+            super.onBackPressed();
+        }
     }
 }

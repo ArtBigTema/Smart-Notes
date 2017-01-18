@@ -76,7 +76,7 @@ public class NodeController {
             try {
                 ActiveAndroid.getDatabase().execSQL("ALTER TABLE Node ADD COLUMN " + s);
             } catch (SQLException e) {
-                Log.e(NodeController.class.getSimpleName(), e.getMessage());
+                Log.w(NodeController.class.getSimpleName(), e.getMessage());
             }
         }
     }
