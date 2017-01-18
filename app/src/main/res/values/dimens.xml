@@ -20,7 +20,8 @@
     <dimen name="margin_big">20dp</dimen>
 
     <dimen name="image_view_size_big">200dp</dimen>
-    <dimen name="image_view_size_small">100dp</dimen>
+    <dimen name="image_view_size_normal">100dp</dimen>
+    <dimen name="image_view_size_small">50dp</dimen>
 
     <dimen name="scrollbar_thumb_size">3dp</dimen>
     <dimen name="scrollbar_thumb_radius">2dp</dimen>

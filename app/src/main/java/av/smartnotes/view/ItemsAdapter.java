@@ -3,10 +3,14 @@ package av.smartnotes.view;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.Collections;
 import java.util.List;
@@ -16,6 +20,7 @@ import av.smartnotes.activity.activity_with.ActivityController;
 import av.smartnotes.substance.Node;
 import av.smartnotes.substance.Priority;
 import av.smartnotes.substance.controller.NodeController;
+import av.smartnotes.util.Utils;
 
 /**
  * Created by Artem on 17.01.2017.
@@ -62,6 +67,15 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
             TextView title = (TextView) itemView.findViewById(R.id.tv_node_title);
             title.setText(node.getTitle());
             title.setTextColor(Priority.values()[node.getPriority()].id());
+
+            ImageView imageView = (ImageView) itemView.findViewById(R.id.iv_node);
+
+            if (!TextUtils.isEmpty(node.getImagePath())) {
+                Glide.with(itemView.getContext())
+                        .load(Utils.getUri(node.getImagePath()))
+                        .error(R.drawable.error)
+                        .into(imageView);
+            }
 
             if (itemView instanceof CardView) {
                 ((CardView) itemView).setCardBackgroundColor(ContextCompat.getColor(itemView.getContext(), R.color.colorAccent));
