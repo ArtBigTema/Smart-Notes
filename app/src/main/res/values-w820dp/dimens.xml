@@ -1,6 +1,29 @@
 <resources>
-    <!-- Example customization of dimensions originally defined in res/values/dimens.xml
-         (such as screen margins) for screens with more than 820dp of available width. This
-         would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively). -->
-    <dimen name="activity_horizontal_margin">64dp</dimen>
+    <dimen name="activity_horizontal_margin">20dp</dimen>
+    <dimen name="activity_vertical_margin">20dp</dimen>
+
+    <dimen name="font_toolbar_elevation">6dp</dimen>
+    <dimen name="font_toolbar">25sp</dimen>
+    <dimen name="font_rv_item">25sp</dimen>
+    <dimen name="font_fab_label">25sp</dimen>
+
+    <dimen name="font_detail_title">25sp</dimen>
+    <dimen name="font_detail_body">25sp</dimen>
+
+    <!-- typical spacing -->
+    <dimen name="padding_small">15dp</dimen>
+    <dimen name="padding_normal">20dp</dimen>
+    <dimen name="margin_normal">20dp</dimen>
+    <dimen name="margin_small">15dp</dimen>
+    <dimen name="margin_micro">7dp</dimen>
+    <dimen name="padding_micro">7dp</dimen>
+    <dimen name="margin_big">25dp</dimen>
+
+    <dimen name="image_view_height">150dp</dimen>
+    <dimen name="image_view_width">150dp</dimen>
+
+    <dimen name="scrollbar_thumb_size">5dp</dimen>
+    <dimen name="scrollbar_thumb_radius">4dp</dimen>
+
+    <dimen name="map_button_size">150dp</dimen>
 </resources>

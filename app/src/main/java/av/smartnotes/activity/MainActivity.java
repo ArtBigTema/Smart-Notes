@@ -50,11 +50,7 @@ public class MainActivity extends ActivityWithFabMenu
     protected void onResume() {
         super.onResume();
 
-        if (!NodeController.isEmpty()) {
-            recyclerView.swapAdapter(
-                    new ItemsAdapter(),
-                    false);
-        }
+        recyclerView.swapAdapter(new ItemsAdapter(), false);
     }
 
     private void showInitDlg() {
