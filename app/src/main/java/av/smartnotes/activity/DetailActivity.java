@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.github.clans.fab.FloatingActionButton;
 import com.github.ivbaranov.mfb.MaterialFavoriteButton;
 
 import org.androidannotations.annotations.AfterViews;
@@ -40,8 +41,13 @@ public class DetailActivity extends ActivityWithFabMenu
     @ViewById(R.id.iv_node)
     protected ImageView imageView;
 
+    @ViewById(R.id.fab_map)
+    protected FloatingActionButton fabMap;
+
     @Extra
     protected long id = -1;
+    @Extra
+    protected boolean fromMap;
 
     private Node node;
 
@@ -59,6 +65,10 @@ public class DetailActivity extends ActivityWithFabMenu
     }
 
     private void setViews() {
+        if (fromMap) {
+            fabMap.setEnabled(false);//recursive
+        }
+
         if (id > -1) {
             setToolbarEditButton(this);
 

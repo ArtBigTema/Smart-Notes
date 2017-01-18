@@ -35,7 +35,7 @@ import av.smartnotes.util.Utils;
 @EActivity
 public class MapsActivity extends FragmentActivity
         implements OnMapReadyCallback, GoogleMap.OnMapClickListener,
-        View.OnClickListener {
+        View.OnClickListener, GoogleMap.OnInfoWindowClickListener {
 
     private GoogleMap mMap;
     private Marker marker;
@@ -73,6 +73,10 @@ public class MapsActivity extends FragmentActivity
                     .create()
                     .show();
         }
+
+        if (mMap != null) {
+            addMarkers();
+        }
     }
 
     @Override
@@ -89,15 +93,14 @@ public class MapsActivity extends FragmentActivity
             color = Priority.values()[node.getPriority()].id();
             zoom = 15;
         }
-
+        addMarkers();
 
         if (viewMode) {
             imageView.setVisibility(View.GONE);
+            googleMap.setOnInfoWindowClickListener(this);
         } else {
             mMap.setOnMapClickListener(this);
         }
-
-        addMarkers();
 
         final int finalZoom = zoom;
         final LatLng finalPoint = point;
@@ -110,18 +113,20 @@ public class MapsActivity extends FragmentActivity
     }
 
     private void addMarkers() {
+        mMap.clear();
         List<Node> nodes = NodeController.getAbsAll();
         for (Node node : nodes) {
-            addMarker(node.getLat(), node.getLng(),
+            addMarker(node.getId(), node.getLat(), node.getLng(),
                     node.getTitle(), node.getId().equals(id),
                     Priority.values()[node.getPriority()].id());
         }
     }
 
-    public void addMarker(double lat, double lng, String title, boolean showAlways, int color) {
+    public void addMarker(Long id, double lat, double lng, String title, boolean showAlways, int color) {
         MarkerOptions marker = new MarkerOptions()
                 .position(new LatLng(lat, lng))
                 .title(title)
+                .snippet(id.toString())
                 .icon(getMarkerIcon(color));
         if (showAlways) {
             this.marker = mMap.addMarker(marker);
@@ -146,6 +151,19 @@ public class MapsActivity extends FragmentActivity
                 .position(latLng)
                 .title(getString(R.string.map_add_marker))
                 .icon(getMarkerIcon(color)));
+    }
+
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+        long id = Long.valueOf(marker.getSnippet());
+
+        if (id != this.id) {
+            DetailActivity_
+                    .intent(this)
+                    .id(id) //id > -1
+                    .fromMap(true)
+                    .start();
+        }
     }
 
     @Override

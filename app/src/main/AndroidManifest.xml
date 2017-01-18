@@ -26,6 +26,7 @@
         <activity android:name=".activity.DetailActivity_" />
         <activity android:name=".activity.EditDetailActivity_" />
         <activity android:name=".activity.activity_with.ActivityWithToolbar_" />
+        <activity android:name=".activity.activity_with.ActivityWithFabMenu_" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
