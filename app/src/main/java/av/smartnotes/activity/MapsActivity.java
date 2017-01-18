@@ -31,6 +31,7 @@ import av.smartnotes.substance.Node;
 import av.smartnotes.substance.Priority;
 import av.smartnotes.substance.controller.NodeController;
 import av.smartnotes.util.Constant;
+import av.smartnotes.util.MyLocationListener;
 import av.smartnotes.util.Utils;
 
 @EActivity
@@ -84,15 +85,26 @@ public class MapsActivity extends FragmentActivity
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        LatLng point = Constant.SAMARA;
+        LatLng point;
         int zoom = 12;
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(point, zoom));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Constant.SAMARA, zoom));
 
         if (id > -1) {
             Node node = NodeController.get(id);
             point = new LatLng(node.getLat(), node.getLng());
             color = Priority.values()[node.getPriority()].id();
             zoom = 15;
+        } else {
+            point = MyLocationListener.getImHere();
+
+            if (point != null) {
+                Utils.putDouble(this, R.string.key_lat, point.latitude);
+                Utils.putDouble(this, R.string.key_lng, point.longitude);
+            } else {
+                double lat = Utils.getDouble(this, R.string.key_lat, Constant.SAMARA.latitude);
+                double lng = Utils.getDouble(this, R.string.key_lng, Constant.SAMARA.longitude);
+                point = new LatLng(lat, lng);
+            }
         }
         addMarkers();
 
@@ -101,6 +113,7 @@ public class MapsActivity extends FragmentActivity
             googleMap.setOnInfoWindowClickListener(this);
         } else {
             mMap.setOnMapClickListener(this);
+            onMapClick(point);
         }
 
         final int finalZoom = zoom;

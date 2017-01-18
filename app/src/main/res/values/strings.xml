@@ -32,4 +32,8 @@
     <!-- map -->
     <string name="map_add_marker">Добавить метку</string>
     <string name="map_save_marker">Сохранить</string>
+
+    <!-- sharedPreference -->
+    <string name="key_lat">key_lat</string>
+    <string name="key_lng">key_lng</string>
 </resources>

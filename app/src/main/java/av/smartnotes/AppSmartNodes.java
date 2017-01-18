@@ -9,6 +9,7 @@ import org.androidannotations.annotations.EApplication;
 
 import av.smartnotes.substance.Node;
 import av.smartnotes.substance.controller.NodeController;
+import av.smartnotes.util.Utils;
 
 /**
  * Created by Artem on 17.01.2017.
@@ -25,6 +26,7 @@ public class AppSmartNodes extends Application {
         ActiveAndroid.initialize(configurationBuilder.create());
 
         NodeController.updatePostDb();
+        Utils.startLocationListener(this);
     }
 
     @Override

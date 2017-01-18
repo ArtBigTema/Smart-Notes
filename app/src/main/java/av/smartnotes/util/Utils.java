@@ -1,10 +1,12 @@
 package av.smartnotes.util;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
@@ -98,5 +100,31 @@ public class Utils {
                 (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+
+    public static void startLocationListener(Context ctx) {
+        MyLocationListener.SetUpLocationListener(ctx);
+    }
+
+    public static SharedPreferences getSharedPreferences(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context);
+    }
+
+    public static void putString(Context c, int key, String value) {
+        SharedPreferences.Editor editor = getSharedPreferences(c).edit();
+        editor.putString(c.getString(key), value);
+        editor.apply();
+    }
+
+    public static String getString(Context c, int key, String defValue) {
+        return getSharedPreferences(c).getString(c.getString(key), defValue);
+    }
+
+    public static void putDouble(Context c, int key, Double value) {
+        putString(c, key, value.toString());
+    }
+
+    public static double getDouble(Context c, int key, Double defValue) {
+        return Double.valueOf(getString(c, key, defValue.toString()));
     }
 }

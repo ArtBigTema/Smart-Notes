@@ -71,6 +71,10 @@ public class EditDetailActivity extends ActivityWithFabMenu
             node = NodeController.get(id);
         } else {
             node = new Node();
+            double lat = Utils.getDouble(this, R.string.key_lat, Constant.SAMARA.latitude);
+            double lng = Utils.getDouble(this, R.string.key_lng, Constant.SAMARA.longitude);
+            node.setLat(lat);
+            node.setLng(lng);
         }
 
         setToolbarTitle(R.string.app_name);
