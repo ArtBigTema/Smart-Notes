@@ -30,6 +30,13 @@ public class Node extends Model {
     @Column(name = "imagePath")
     private String imagePath;
 
+    @Expose
+    @Column(name = "lat")
+    private double lat;
+    @Expose
+    @Column(name = "lng")
+    private double lng;
+
     public Node() {//Don't delete crash at first init
         super();
         priority = Color.WHITE;
