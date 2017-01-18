@@ -69,6 +69,8 @@ public class EditDetailActivity extends ActivityWithFabMenu
         super.afterView();
         if (id > -1) {
             node = NodeController.get(id);
+        } else {
+            node = new Node();
         }
 
         setToolbarTitle(R.string.app_name);
@@ -82,16 +84,16 @@ public class EditDetailActivity extends ActivityWithFabMenu
             nodeTitle.setText(node.getTitle());
             nodeBody.setText(node.getBody());
             priorityColor = Priority.values()[node.getPriority()].id();
-            colorBtn.setBackgroundColor(priorityColor);
 
             if (!TextUtils.isEmpty(node.getImagePath())) {
                 imageView.setImageURI(Utils.getUri(node.getImagePath()));
             }
         } else {
-            priorityColor = Color.WHITE;
+            priorityColor = Color.BLUE;
             fabDelete.setEnabled(false);
         }
 
+        colorBtn.setBackgroundColor(priorityColor);
         setToolbarSaveButton(this);
     }
 
@@ -136,8 +138,11 @@ public class EditDetailActivity extends ActivityWithFabMenu
 
     @Click(R.id.fab_map)
     protected void fabMapClick() {
-        Intent intent = new Intent(this, MapsActivity.class);
-        startActivity(intent);
+        MapsActivity_
+                .intent(this)
+                .viewMode(false)
+                .id(id)
+                .startForResult(Constant.CODE_MAP);
     }
 
     @Click(R.id.iv_node)
@@ -161,13 +166,17 @@ public class EditDetailActivity extends ActivityWithFabMenu
             imagePath = image.getPath();
             imageView.setImageURI(Utils.getUri(imagePath));
         }
+        if (requestCode == Constant.CODE_MAP && resultCode == RESULT_OK && data != null) {
+            node.setLat(data.getDoubleExtra(Constant.EXTRA_LAT, 0d));
+            node.setLng(data.getDoubleExtra(Constant.EXTRA_LNG, 0d));
+        }
     }
 
     @Click(R.id.btn_color)
     protected void btnColorClick() {
         ColorPickerDialog dialog = ColorPickerDialog.newInstance(
                 R.string.color_picker_default_title,
-                new int[]{Color.WHITE, Color.GREEN, Color.YELLOW, Color.RED},
+                new int[]{Color.BLUE, Color.GREEN, Color.YELLOW, Color.RED},
                 priorityColor,
                 5,
                 ColorPickerDialog.SIZE_SMALL);
@@ -204,18 +213,11 @@ public class EditDetailActivity extends ActivityWithFabMenu
             return false;
         }
 
-        if (id < 0) {
-            Node.construct(nodeTitle.getText().toString(),
-                    nodeBody.getText().toString(),
-                    priorityColor,
-                    imagePath);
-        } else {
-            node.setTitle(nodeTitle.getText().toString());
-            node.setBody(nodeBody.getText().toString());
-            node.setColor(priorityColor);
-            node.setImagePath(imagePath);
-            node.save();
-        }
+        node.setTitle(nodeTitle.getText().toString());
+        node.setBody(nodeBody.getText().toString());
+        node.setColor(priorityColor);
+        node.setImagePath(imagePath);
+        node.save();
 
         new Handler().postDelayed(new Runnable() {
             @Override

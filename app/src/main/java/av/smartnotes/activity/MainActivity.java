@@ -1,6 +1,6 @@
 package av.smartnotes.activity;
 
-import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,6 +21,7 @@ import org.androidannotations.annotations.ViewById;
 import av.smartnotes.R;
 import av.smartnotes.activity.activity_with.ActivityWithFabMenu;
 import av.smartnotes.substance.controller.NodeController;
+import av.smartnotes.util.Constant;
 import av.smartnotes.util.FileController;
 import av.smartnotes.util.Utils;
 import av.smartnotes.view.DividerItemDecoration;
@@ -89,8 +90,17 @@ public class MainActivity extends ActivityWithFabMenu
 
     @Click(R.id.fab_map)
     protected void clickFabMap() {
-        Intent intent = new Intent(this, MapsActivity.class);
-        startActivity(intent);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {//ripple
+                MapsActivity_
+                        .intent(MainActivity.this)
+                        .viewMode(true)
+                        .id(-1)
+                        .start();
+            }
+        }, Constant.DURATION);
     }
 
     @LongClick(R.id.fab_add)

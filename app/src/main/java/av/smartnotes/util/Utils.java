@@ -1,6 +1,9 @@
 package av.smartnotes.util;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
@@ -88,5 +91,12 @@ public class Utils {
     public static Uri getUri(String path) {
         File file = new File(path);
         return Uri.fromFile(file);
+    }
+
+    public static boolean isOnline(Context context) {
+        ConnectivityManager cm =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 }

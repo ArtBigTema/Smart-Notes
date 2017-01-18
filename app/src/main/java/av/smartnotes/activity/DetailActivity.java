@@ -83,8 +83,11 @@ public class DetailActivity extends ActivityWithFabMenu
 
     @Click(R.id.fab_map)
     protected void fabMapClick() {
-        Intent intent = new Intent(this, MapsActivity.class);
-        startActivity(intent);
+        MapsActivity_
+                .intent(this)
+                .viewMode(true)
+                .id(id)
+                .start();
     }
 
     @Click(R.id.fab_share)

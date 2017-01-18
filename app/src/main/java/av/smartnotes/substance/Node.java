@@ -1,7 +1,5 @@
 package av.smartnotes.substance;
 
-import android.graphics.Color;
-
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
@@ -39,7 +37,7 @@ public class Node extends Model {
 
     public Node() {//Don't delete crash at first init
         super();
-        priority = Color.WHITE;
+        priority = 0;
     }
 
     public Node(String title, String body) {
@@ -85,12 +83,20 @@ public class Node extends Model {
         this.imagePath = imagePath;
     }
 
-    public static Node construct(String title, String body, int color, String path) {
-        Node node = new Node(title, body);
-        node.setPriority(Priority.fromId(color).ordinal());
-        node.setImagePath(path);
-        node.save();
-        return node;
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLng() {
+        return lng;
+    }
+
+    public void setLng(double lng) {
+        this.lng = lng;
     }
 
     @Override

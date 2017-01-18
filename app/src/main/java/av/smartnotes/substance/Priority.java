@@ -7,7 +7,7 @@ import android.graphics.Color;
  */
 
 public enum Priority {
-    White(Color.WHITE), Green(Color.GREEN), Yellow(Color.YELLOW), Red(Color.RED);
+    Blue(Color.BLUE), Green(Color.GREEN), Yellow(Color.YELLOW), Red(Color.RED);
     private int mValue;
 
     Priority(int value) {
@@ -24,6 +24,6 @@ public enum Priority {
                 return color;
             }
         }
-        return White;
+        return Blue;
     }
 }

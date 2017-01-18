@@ -12,6 +12,8 @@
     <string name="alert_dialog_body_save">Пожалуйста, заполните поля более информативно</string>
     <string name="alert_dialog_body_close">Сохранить заметку перед выходом?</string>
     <string name="alert_dialog_body_export">Необходимо создать хотя бы одну заметку, прежде чем сохранить в файл</string>
+    <string name="alert_dialog_select_map">Необходимо создать хотя бы одну метку</string>
+    <string name="alert_dialog_online_map">Для корректного отображения карты необходимо подключение к интернету</string>
     <string name="alert_dialog_btn_ok">Да</string><!-- android.R.string.ok -->
     <string name="alert_dialog_btn_no">Нет</string><!-- android.R.string.no -->
 
@@ -25,4 +27,8 @@
     <string name="fab_label_add_geo">Указать гео метку</string>
     <string name="fab_label_delete">Удалить заметку</string>
     <string name="fab_label_share">Поделиться</string>
+
+    <!-- map -->
+    <string name="map_add_marker">Добавить метку</string>
+    <string name="map_save_marker">Сохранить</string>
 </resources>

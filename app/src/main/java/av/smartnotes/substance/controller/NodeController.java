@@ -49,6 +49,8 @@ public class NodeController {
 
     public static void createList() {
         deleteAbsAll();
+        double lat = Constant.SAMARA.latitude;
+        double lng = Constant.SAMARA.longitude;
 
         Random r = new Random();
         for (int i = 0; i < 10; i++) {
@@ -56,6 +58,8 @@ public class NodeController {
             node.setTitle(Constant.title.concat(String.valueOf(i + 1)));
             node.setBody(Constant.body.concat(String.valueOf(i + 1)));
             node.setPriority(r.nextInt(4));
+            node.setLat(lat + (0.05 - r.nextDouble() * 0.1));
+            node.setLng(lng + (0.05 - r.nextDouble() * 0.1));
             node.save();
         }
     }
