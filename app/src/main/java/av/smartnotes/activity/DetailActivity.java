@@ -11,9 +11,11 @@ import com.github.clans.fab.FloatingActionButton;
 import com.github.ivbaranov.mfb.MaterialFavoriteButton;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
+import org.androidannotations.annotations.LongClick;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.ViewById;
 
@@ -24,6 +26,7 @@ import av.smartnotes.substance.Node;
 import av.smartnotes.substance.Priority;
 import av.smartnotes.substance.controller.NodeController;
 import av.smartnotes.util.Constant;
+import av.smartnotes.util.FileController;
 import av.smartnotes.util.Utils;
 
 /**
@@ -103,6 +106,16 @@ public class DetailActivity extends ActivityWithFabMenu
         } else {
             ActivityController.startShareText(this, node.toText());
         }
+    }
+
+    @LongClick(R.id.fab_share)
+    protected void fabShareLongClick() {
+        saveNode();
+    }
+
+    @Background
+    protected void saveNode() {
+        FileController.writeTextToFile(this, Utils.toJson(node));
     }
 
     @Click(R.id.fab_share_geo)
