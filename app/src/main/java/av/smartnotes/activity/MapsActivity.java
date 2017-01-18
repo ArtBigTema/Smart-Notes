@@ -26,6 +26,7 @@ import org.androidannotations.annotations.Extra;
 import java.util.List;
 
 import av.smartnotes.R;
+import av.smartnotes.activity.activity_with.ActivityController;
 import av.smartnotes.substance.Node;
 import av.smartnotes.substance.Priority;
 import av.smartnotes.substance.controller.NodeController;
@@ -158,11 +159,7 @@ public class MapsActivity extends FragmentActivity
         long id = Long.valueOf(marker.getSnippet());
 
         if (id != this.id) {
-            DetailActivity_
-                    .intent(this)
-                    .id(id) //id > -1
-                    .fromMap(true)
-                    .start();
+            ActivityController.startDetailActivity(this, id, true);
         }
     }
 

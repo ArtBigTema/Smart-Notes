@@ -1,6 +1,5 @@
 package av.smartnotes.activity;
 
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -19,6 +18,7 @@ import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.ViewById;
 
 import av.smartnotes.R;
+import av.smartnotes.activity.activity_with.ActivityController;
 import av.smartnotes.activity.activity_with.ActivityWithFabMenu;
 import av.smartnotes.substance.Node;
 import av.smartnotes.substance.Priority;
@@ -93,56 +93,29 @@ public class DetailActivity extends ActivityWithFabMenu
 
     @Click(R.id.fab_map)
     protected void fabMapClick() {
-        MapsActivity_
-                .intent(this)
-                .viewMode(true)
-                .id(id)
-                .start();
+        ActivityController.startMapsActivity(this, true, id);
     }
 
     @Click(R.id.fab_share)
     protected void fabShareClick() {
-        Intent shareIntent = new Intent();
-
         if (!TextUtils.isEmpty(node.getImagePath())) {
-            Uri imageUri = Uri.parse("file://" + node.getImagePath());
-            shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
-            shareIntent.setType("image/*");
+            ActivityController.startShareTextImage(this, node.getImagePath(), node.toText());
         } else {
-            shareIntent.setType("text/*");
+            ActivityController.startShareText(this, node.toText());
         }
-
-        shareIntent.setAction(Intent.ACTION_SEND);
-        shareIntent.putExtra(Intent.EXTRA_TEXT, node.toText());
-        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        startActivity(Intent.createChooser(shareIntent, "send"));
     }
 
     @Click(R.id.fab_share_geo)
     protected void fabShareGeoClick() {
-        Intent shareIntent = new Intent();
         Uri geo = Uri.parse("geo:" + node.getLat() + ',' + node.getLng());
-        shareIntent.setAction(Intent.ACTION_VIEW);
-        shareIntent.setData(geo);
-        startActivity(Intent.createChooser(shareIntent, "view by"));
+        ActivityController.startMaps(this, geo);
     }
 
     @Click(R.id.iv_node)
     protected void imageViewClick() {
         if (!TextUtils.isEmpty(node.getImagePath())) {
-            startIntentExtraImageActivity(node.getImagePath());//fixme if false
+            ActivityController.startViewImage(this, node.getImagePath());//fixme if false
         }
-    }
-
-    public boolean startIntentExtraImageActivity(String imageUrl) {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setAction(Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.parse("file://" + imageUrl), "image/*");
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivity(intent);
-            return true;
-        }
-        return false;
     }
 
     @Override
@@ -157,11 +130,7 @@ public class DetailActivity extends ActivityWithFabMenu
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                EditDetailActivity_
-                        .intent(DetailActivity.this)
-                        .id(id)
-                        .start();
-
+                ActivityController.startEditDetailActivity(DetailActivity.this, id);
                 finish();
             }
         }, Constant.ACTIVITY_FINISH);

@@ -13,7 +13,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.esafirm.imagepicker.features.ImagePicker;
-import com.esafirm.imagepicker.features.ImagePickerActivity;
 import com.esafirm.imagepicker.model.Image;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.ivbaranov.mfb.MaterialFavoriteButton;
@@ -28,6 +27,7 @@ import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.ViewById;
 
 import av.smartnotes.R;
+import av.smartnotes.activity.activity_with.ActivityController;
 import av.smartnotes.activity.activity_with.ActivityWithFabMenu;
 import av.smartnotes.substance.Node;
 import av.smartnotes.substance.Priority;
@@ -147,16 +147,7 @@ public class EditDetailActivity extends ActivityWithFabMenu
 
     @Click(R.id.iv_node)
     protected void imageViewClick() {
-        Intent intent = new Intent(this, ImagePickerActivity.class);
-
-        intent.putExtra(ImagePicker.EXTRA_FOLDER_MODE, true);
-        intent.putExtra(ImagePicker.EXTRA_MODE, ImagePicker.MODE_SINGLE);
-        intent.putExtra(ImagePicker.EXTRA_SHOW_CAMERA, false);
-        intent.putExtra(ImagePicker.EXTRA_FOLDER_TITLE, "Album");
-        intent.putExtra(ImagePicker.EXTRA_IMAGE_TITLE, "Tap to select images");
-        intent.putExtra(ImagePicker.EXTRA_RETURN_AFTER_FIRST, true); //default is false
-
-        startActivityForResult(intent, Constant.CODE);
+        ActivityController.startImagePicker(this);
     }
 
     @Override

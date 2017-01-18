@@ -12,8 +12,7 @@ import java.util.Collections;
 import java.util.List;
 
 import av.smartnotes.R;
-import av.smartnotes.activity.DetailActivity_;
-import av.smartnotes.activity.EditDetailActivity_;
+import av.smartnotes.activity.activity_with.ActivityController;
 import av.smartnotes.substance.Node;
 import av.smartnotes.substance.Priority;
 import av.smartnotes.substance.controller.NodeController;
@@ -73,19 +72,12 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
 
         @Override
         public void onClick(View v) {
-            DetailActivity_
-                    .intent(v.getContext())
-                    .id(item.getId())
-                    .start();
+            ActivityController.startDetailActivity(v.getContext(), item.getId());
         }
 
         @Override
         public boolean onLongClick(View v) {
-            EditDetailActivity_
-                    .intent(v.getContext())
-                    .id(item.getId())
-                    .start();
-
+            ActivityController.startEditDetailActivity(v.getContext(), item.getId());
             return true;
         }
     }

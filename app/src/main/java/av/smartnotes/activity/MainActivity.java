@@ -19,6 +19,7 @@ import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
 import av.smartnotes.R;
+import av.smartnotes.activity.activity_with.ActivityController;
 import av.smartnotes.activity.activity_with.ActivityWithFabMenu;
 import av.smartnotes.substance.controller.NodeController;
 import av.smartnotes.util.Constant;
@@ -85,7 +86,7 @@ public class MainActivity extends ActivityWithFabMenu
 
     @Click(R.id.fab_add)
     protected void clickFabAdd() {
-        EditDetailActivity_.intent(this).start();
+        ActivityController.startEditDetailActivity(this);
     }
 
     @Click(R.id.fab_map)
@@ -94,11 +95,7 @@ public class MainActivity extends ActivityWithFabMenu
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {//ripple
-                MapsActivity_
-                        .intent(MainActivity.this)
-                        .viewMode(true)
-                        .id(-1)
-                        .start();
+                ActivityController.startMapsActivity(MainActivity.this, true, -1);
             }
         }, Constant.DURATION);
     }
