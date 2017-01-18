@@ -4,12 +4,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.github.clans.fab.FloatingActionMenu;
 import com.github.ivbaranov.mfb.MaterialFavoriteButton;
 
 import org.androidannotations.annotations.AfterViews;
@@ -20,7 +18,7 @@ import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.ViewById;
 
 import av.smartnotes.R;
-import av.smartnotes.activity.activity_with.ActivityWithToolbar;
+import av.smartnotes.activity.activity_with.ActivityWithFabMenu;
 import av.smartnotes.substance.Node;
 import av.smartnotes.substance.Priority;
 import av.smartnotes.substance.controller.NodeController;
@@ -31,16 +29,13 @@ import av.smartnotes.util.Utils;
  * Created by Artem on 17.01.2017.
  */
 @EActivity(R.layout.activity_detail)
-public class DetailActivity extends ActivityWithToolbar
+public class DetailActivity extends ActivityWithFabMenu
         implements MaterialFavoriteButton.OnClickListener {
     @ViewById(R.id.et_node_title)
     protected TextView nodeTitle;
 
     @ViewById(R.id.et_node_body)
     protected TextView nodeBody;
-
-    @ViewById(R.id.fab_detail)
-    protected FloatingActionMenu fab;
 
     @ViewById(R.id.iv_node)
     protected ImageView imageView;
@@ -59,7 +54,6 @@ public class DetailActivity extends ActivityWithToolbar
         displayHomeArrow();
 
         setViews();
-        fab.setClosedOnTouchOutside(true);
 
         changeColor(Priority.values()[node.getPriority()].id());
     }
@@ -119,7 +113,7 @@ public class DetailActivity extends ActivityWithToolbar
     public void onClick(View v) {//onclick edit
         markToolbarButton(false);
         disableToolbar();
-        fab.setEnabled(false);
+        disableFab();
         showEditDetailActivity();
     }
 
@@ -135,24 +129,5 @@ public class DetailActivity extends ActivityWithToolbar
                 finish();
             }
         }, Constant.ACTIVITY_FINISH);
-    }
-
-    @Override
-    public boolean onKeyDown(int keycode, KeyEvent e) {
-        switch (keycode) {
-            case KeyEvent.KEYCODE_MENU:
-                fab.toggle(true);
-                return true;
-        }
-        return super.onKeyDown(keycode, e);
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (fab.isOpened()) {
-            fab.toggle(true);
-        } else {
-            super.onBackPressed();
-        }
     }
 }

@@ -4,11 +4,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Toast;
 
-import com.github.clans.fab.FloatingActionMenu;
 import com.github.ivbaranov.mfb.MaterialFavoriteButton;
 
 import org.androidannotations.annotations.AfterViews;
@@ -20,7 +18,7 @@ import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
 import av.smartnotes.R;
-import av.smartnotes.activity.activity_with.ActivityWithToolbar;
+import av.smartnotes.activity.activity_with.ActivityWithFabMenu;
 import av.smartnotes.substance.controller.NodeController;
 import av.smartnotes.util.FileController;
 import av.smartnotes.util.Utils;
@@ -28,14 +26,11 @@ import av.smartnotes.view.DividerItemDecoration;
 import av.smartnotes.view.ItemsAdapter;
 
 @EActivity(R.layout.activity_main)
-public class MainActivity extends ActivityWithToolbar
+public class MainActivity extends ActivityWithFabMenu
         implements MaterialFavoriteButton.OnClickListener, MaterialFavoriteButton.OnLongClickListener {
 
     @ViewById(R.id.rv_main)
     protected RecyclerView recyclerView;
-
-    @ViewById(R.id.fab_main)
-    protected FloatingActionMenu fab;
 
     @AfterViews
     public void afterView() {
@@ -46,31 +41,17 @@ public class MainActivity extends ActivityWithToolbar
 
         showInitDlg();
         setToolbarExportButton(this, this);
-        fab.setClosedOnTouchOutside(true);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        fab.showMenu(true);
 
         if (!NodeController.isEmpty()) {
             recyclerView.swapAdapter(
                     new ItemsAdapter(),
                     false);
         }
-    }
-
-    @Override
-    protected void onPause() {
-        fab.hideMenu(true);
-        super.onPause();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        // CollectionsManager.getInstance().clear();
     }
 
     private void showInitDlg() {
@@ -98,14 +79,6 @@ public class MainActivity extends ActivityWithToolbar
                 toggleFab(dy > 0);
             }
         });
-    }
-
-    private void toggleFab(boolean hide) {
-        if (hide) {
-            fab.hideMenu(true);
-        } else {
-            fab.showMenu(true);
-        }
     }
 
     @Click(R.id.fab_add)
@@ -172,24 +145,5 @@ public class MainActivity extends ActivityWithToolbar
     @UiThread
     protected void setAdapter() {
         recyclerView.setAdapter(new ItemsAdapter());
-    }
-
-    @Override
-    public boolean onKeyDown(int keycode, KeyEvent e) {
-        switch (keycode) {
-            case KeyEvent.KEYCODE_MENU:
-                fab.toggle(true);
-                return true;
-        }
-        return super.onKeyDown(keycode, e);
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (fab.isOpened()) {
-            fab.toggle(true);
-        } else {
-            super.onBackPressed();
-        }
     }
 }
