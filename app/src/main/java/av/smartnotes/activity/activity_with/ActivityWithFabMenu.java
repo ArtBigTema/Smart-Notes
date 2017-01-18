@@ -22,7 +22,7 @@ public class ActivityWithFabMenu extends ActivityWithToolbar {
         fab.setClosedOnTouchOutside(true);
     }
 
-    protected void disableFab(){
+    protected void disableFab() {
         fab.setEnabled(false);
     }
 

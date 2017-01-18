@@ -1,5 +1,6 @@
 package av.smartnotes.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.LinearLayoutManager;
@@ -88,7 +89,8 @@ public class MainActivity extends ActivityWithFabMenu
 
     @Click(R.id.fab_map)
     protected void clickFabMap() {
-        //open map
+        Intent intent = new Intent(this, MapsActivity.class);
+        startActivity(intent);
     }
 
     @LongClick(R.id.fab_add)

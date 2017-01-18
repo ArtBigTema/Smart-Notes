@@ -15,8 +15,8 @@ import android.widget.ImageView;
 import com.esafirm.imagepicker.features.ImagePicker;
 import com.esafirm.imagepicker.features.ImagePickerActivity;
 import com.esafirm.imagepicker.model.Image;
+import com.github.clans.fab.FloatingActionButton;
 import com.github.ivbaranov.mfb.MaterialFavoriteButton;
-import com.melnykov.fab.FloatingActionButton;
 import com.woalk.apps.lib.colorpicker.ColorPickerDialog;
 import com.woalk.apps.lib.colorpicker.ColorPickerSwatch;
 
@@ -28,7 +28,7 @@ import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.ViewById;
 
 import av.smartnotes.R;
-import av.smartnotes.activity.activity_with.ActivityWithToolbar;
+import av.smartnotes.activity.activity_with.ActivityWithFabMenu;
 import av.smartnotes.substance.Node;
 import av.smartnotes.substance.Priority;
 import av.smartnotes.substance.controller.NodeController;
@@ -40,7 +40,7 @@ import av.smartnotes.util.Utils;
  */
 
 @EActivity(R.layout.activity_edit_detail)
-public class EditDetailActivity extends ActivityWithToolbar
+public class EditDetailActivity extends ActivityWithFabMenu
         implements MaterialFavoriteButton.OnClickListener {
     @ViewById(R.id.et_node_title)
     protected EditText nodeTitle;
@@ -48,14 +48,14 @@ public class EditDetailActivity extends ActivityWithToolbar
     @ViewById(R.id.et_node_body)
     protected EditText nodeBody;
 
-    @ViewById(R.id.fab)
-    protected FloatingActionButton fab;
-
     @ViewById(R.id.btn_color)
     protected Button colorBtn;
 
     @ViewById(R.id.iv_node)
     protected ImageView imageView;
+
+    @ViewById(R.id.fab_delete)
+    protected FloatingActionButton fabDelete;
 
     @Extra
     protected long id = -1;
@@ -89,7 +89,7 @@ public class EditDetailActivity extends ActivityWithToolbar
             }
         } else {
             priorityColor = Color.WHITE;
-            fab.setVisibility(View.GONE);
+            fabDelete.setEnabled(false);
         }
 
         setToolbarSaveButton(this);
@@ -128,10 +128,16 @@ public class EditDetailActivity extends ActivityWithToolbar
         dialog.create().show();
     }
 
-    @Click(R.id.fab)
-    protected void fabClick() {
+    @Click(R.id.fab_delete)
+    protected void fabDeleteClick() {
         node.delete();
         finish();
+    }
+
+    @Click(R.id.fab_map)
+    protected void fabMapClick() {
+        Intent intent = new Intent(this, MapsActivity.class);
+        startActivity(intent);
     }
 
     @Click(R.id.iv_node)

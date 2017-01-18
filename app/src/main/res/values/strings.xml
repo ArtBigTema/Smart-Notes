@@ -21,6 +21,7 @@
     <!-- fab -->
     <string name="fab_label_add">Добавить заметку</string>
     <string name="fab_label_map">Открыть карту</string>
+    <string name="fab_label_show_map">Показать на карте</string>
     <string name="fab_label_add_geo">Указать гео метку</string>
     <string name="fab_label_delete">Удалить заметку</string>
     <string name="fab_label_share">Поделиться</string>
